@@ -1,0 +1,7 @@
+{
+  "// note": "Recommended extensions for this project. VS Code will offer to install these when you open the folder.",
+  "recommendations": [
+    "anthropic.claude-code",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
