@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'The Lattice — Atoms to Molecules',
-        short_name: 'The Lattice',
-        description: 'A window into a world dissolving at the molecular level.',
+        name: 'הסריג — מאטומים למולקולות',
+        short_name: 'הסריג',
+        description: 'חלון אל עולם שמתפרק ברמת המולקולה.',
         theme_color: '#05060a',
         background_color: '#05060a',
         display: 'standalone',

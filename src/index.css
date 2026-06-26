@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: #05060a;
   color: #d7e0ea;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Heebo', system-ui, sans-serif;
   overflow: hidden;
   /* respect the notch */
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -103,13 +103,30 @@ body {
 }
 
 .mono {
+  font-family: 'Heebo', system-ui, sans-serif;
+}
+
+/* Isolate a Latin / numeric / formula run inside RTL Hebrew so it keeps its own
+   left-to-right order and the monospace "transmission" look. */
+.code {
+  direction: ltr;
+  unicode-bidi: isolate;
   font-family: 'Space Mono', ui-monospace, monospace;
+}
+
+/* In RTL the Latin-era tricks read as broken Hebrew — neutralize globally so the
+   ~35 inline tracking/uppercase utilities don't each need editing. */
+[dir='rtl'] [class*='tracking-'] {
+  letter-spacing: normal;
+}
+[dir='rtl'] .uppercase {
+  text-transform: none;
 }
 
 /* The blinking transmission cursor */
 .caret::after {
   content: '▋';
-  margin-left: 2px;
+  margin-inline-start: 2px;
   animation: caret 1s steps(1) infinite;
   color: var(--signal);
 }
@@ -129,9 +146,8 @@ body {
 /* Buttons that read as "in-world controls", not form widgets */
 .btn-signal {
   position: relative;
-  font-family: 'Space Mono', monospace;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: 'Heebo', system-ui, sans-serif;
+  letter-spacing: 0;
   color: #05060a;
   background: linear-gradient(180deg, #7df6ff, #34c8e0);
   border: none;
@@ -150,9 +166,8 @@ body {
 }
 
 .btn-ghost {
-  font-family: 'Space Mono', monospace;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: 'Heebo', system-ui, sans-serif;
+  letter-spacing: 0;
   color: var(--signal);
   background: transparent;
   border: 1px solid rgba(94, 242, 255, 0.35);
@@ -167,9 +182,8 @@ body {
 
 /* Inputs that feel like a console field */
 .field-signal {
-  font-family: 'Space Mono', monospace;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-family: 'Heebo', system-ui, sans-serif;
+  letter-spacing: 0;
   text-align: center;
   background: rgba(5, 8, 16, 0.6);
   border: 1px solid rgba(94, 242, 255, 0.3);

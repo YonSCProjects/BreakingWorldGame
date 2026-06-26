@@ -5,6 +5,7 @@ import { MISSIONS } from '../data/missions'
 import { MOLECULES } from '../data/molecules'
 import { ELEMENTS } from '../data/elements'
 import AtomGlyph from '../components/AtomGlyph'
+import Code from '../components/Code'
 import { hapticSeal, hapticLight } from '../utils/haptics'
 
 export default function BondScreen() {
@@ -101,9 +102,9 @@ export default function BondScreen() {
       onPointerLeave={onPointerUp}
     >
       <header className="text-center">
-        <p className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ THE BONDING RITUAL</p>
-        <h2 className="mono mt-1 text-lg uppercase tracking-[0.25em] text-signal text-glow">
-          All hands on the lattice
+        <p className="mono text-[11px] tracking-[0.35em] text-signal/60">◈ טקס הקשירה</p>
+        <h2 className="mono mt-1 text-lg tracking-[0.25em] text-signal text-glow">
+          כל הידיים על הסריג
         </h2>
       </header>
 
@@ -170,20 +171,20 @@ export default function BondScreen() {
             animate={{ opacity: 1, scale: 1 }}
             className="mono text-base tracking-[0.3em] text-signal text-glow"
           >
-            ⟡ BOUND ⟡
+            ⟡ נקשר ⟡
           </motion.p>
         ) : (
           <>
-            <p className="mono text-xs leading-relaxed text-[#bfefff]/80">
+            <p className="mono text-sm leading-relaxed text-[#bfefff]/80">
               {charge < 0.02
-                ? 'Press and hold — every hand you can muster — to pull the atoms together.'
+                ? 'לחצו והחזיקו — בכל יד שתוכלו לגייס — כדי למשוך את האטומים זה אל זה.'
                 : charge < 0.99
-                  ? 'HOLD. The bond is taking. Do not let go.'
-                  : 'NOW —'}
+                  ? 'החזיקו. הקשר נתפס. אל תרפו.'
+                  : 'עכשיו —'}
             </p>
             {hands > 1 && (
-              <p className="mono text-[10px] tracking-[0.25em] text-lattice/80">
-                {hands} HANDS · LATTICE RESONATING
+              <p className="mono text-[11px] tracking-[0.25em] text-lattice/80">
+                <Code>{hands}</Code> ידיים · הסריג מהדהד
               </p>
             )}
           </>
@@ -193,10 +194,10 @@ export default function BondScreen() {
       {/* escape hatch back to the field (in case a card is wrong) */}
       {!sealed && charge < 0.02 && (
         <button
-          className="mono absolute bottom-3 text-[10px] tracking-[0.25em] text-signal/30 active:text-signal"
+          className="mono absolute bottom-3 text-[11px] tracking-[0.25em] text-signal/30 active:text-signal"
           onClick={() => goto('hunt')}
         >
-          ‹ return to the field
+          › חזרה אל השדה
         </button>
       )}
     </div>

@@ -5,6 +5,7 @@ import { ALL_MOLECULE_IDS, MOLECULES } from '../data/molecules'
 import { ELEMENTS, ALL_ELEMENT_SYMBOLS } from '../data/elements'
 import CodexCard from '../components/CodexCard'
 import AtomGlyph from '../components/AtomGlyph'
+import Code from '../components/Code'
 import { formulaLabel } from '../utils/format'
 
 export default function CodexScreen({ onClose }: { onClose: () => void }) {
@@ -27,21 +28,21 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
       <div className="relative z-10 mx-auto flex max-w-md flex-col gap-6 px-6 py-8">
         <header className="flex items-center justify-between border-b border-signal/20 pb-3">
           <div>
-            <h2 className="mono text-sm uppercase tracking-[0.3em] text-signal text-glow">
-              ◈ The Codex
+            <h2 className="mono text-sm tracking-[0.3em] text-signal text-glow">
+              ◈ הקודקס
             </h2>
-            <p className="mono mt-1 text-[10px] tracking-[0.2em] text-signal/50">
-              {cellName} · {stabilized}/{total} STABILIZED
+            <p className="mono mt-1 text-[11px] tracking-[0.2em] text-signal/50">
+              <Code plain>{cellName}</Code> · <Code>{stabilized}/{total}</Code> מיוצבים
             </p>
           </div>
           <button className="btn-ghost text-xs" onClick={onClose}>
-            Close
+            סגירה
           </button>
         </header>
 
         {/* discovered atoms */}
         <section>
-          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">ATOMS DISCOVERED</p>
+          <p className="mono mb-3 text-[11px] tracking-[0.3em] text-signal/50">אטומים שהתגלו</p>
           <div className="flex flex-wrap gap-1">
             {ALL_ELEMENT_SYMBOLS.map((sym) => {
               const found = elementsFound.includes(sym)
@@ -61,7 +62,7 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
 
         {/* molecules */}
         <section>
-          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">LATTICES STABILIZED</p>
+          <p className="mono mb-3 text-[11px] tracking-[0.3em] text-signal/50">סריגים מיוצבים</p>
           <div className="grid grid-cols-2 gap-3">
             {ALL_MOLECULE_IDS.map((id) => {
               const unlocked = done.includes(id)
@@ -77,8 +78,8 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
           </div>
         </section>
 
-        <p className="mono pb-6 text-center text-[9px] leading-relaxed tracking-[0.2em] text-signal/30">
-          THE UNBINDING RECEDES WHERE A SHAPE STILL HOLDS.
+        <p className="mono pb-6 text-center text-[10px] leading-relaxed tracking-[0.2em] text-signal/30">
+          ההתרה נסוגה היכן שצורה עדיין אוחזת.
         </p>
       </div>
 
@@ -86,12 +87,12 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
       <AnimatePresence>
         {openMol && (
           <DetailSheet onClose={() => setOpenMol(null)}>
-            <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ STABILIZED LATTICE</span>
-            <h3 className="mono text-xl uppercase tracking-[0.2em] text-signal text-glow">
+            <span className="mono text-[11px] tracking-[0.35em] text-signal/60">◈ סריג מיוצב</span>
+            <h3 className="mono text-xl tracking-[0.2em] text-signal text-glow">
               {MOLECULES[openMol].displayName}
             </h3>
             <span className="mono text-xs tracking-[0.3em] text-signal/60">
-              {formulaLabel(MOLECULES[openMol].formula)}
+              <Code>{formulaLabel(MOLECULES[openMol].formula)}</Code>
             </span>
             <p className="mt-2 text-center text-sm leading-relaxed text-[#bfefff]/85">
               {MOLECULES[openMol].codexEntry}
@@ -105,11 +106,15 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
         {openEl && (
           <DetailSheet onClose={() => setOpenEl(null)}>
             <AtomGlyph symbol={openEl} size={64} />
-            <h3 className="mono text-xl uppercase tracking-[0.2em] text-glow" style={{ color: ELEMENTS[openEl].color }}>
+            <h3 className="mono text-xl tracking-[0.2em] text-glow" style={{ color: ELEMENTS[openEl].color }}>
               {ELEMENTS[openEl].name}
             </h3>
-            <span className="mono text-[10px] tracking-[0.25em] text-signal/60">
-              {ELEMENTS[openEl].trap ? 'SEALED · VALENCE 0' : `VALENCE ${ELEMENTS[openEl].valence}`}
+            <span className="mono text-[11px] tracking-[0.25em] text-signal/60">
+              {ELEMENTS[openEl].trap ? (
+                <>חתום · ערכיות <Code>0</Code></>
+              ) : (
+                <>ערכיות <Code>{ELEMENTS[openEl].valence}</Code></>
+              )}
             </span>
             <p className="mt-2 text-center text-sm leading-relaxed text-[#bfefff]/85">
               {ELEMENTS[openEl].codexEntry}
@@ -140,7 +145,7 @@ function DetailSheet({ children, onClose }: { children: React.ReactNode; onClose
       >
         {children}
         <button className="btn-ghost mt-4 text-xs" onClick={onClose}>
-          Seal Entry
+          חתמו את הרשומה
         </button>
       </motion.div>
     </motion.div>

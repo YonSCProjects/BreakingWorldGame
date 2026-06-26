@@ -2,6 +2,7 @@ import type { Mission } from '../types'
 
 // Act I — a linear descent. One glorious chain: Water → Oxygen gas → Carbon dioxide.
 // Voice: a transmission from the Lattice. Urgent, sci-fi, never instructional.
+// Hebrew copy is a first draft (Yon to polish); id/order/act/target are data.
 export const MISSIONS: Mission[] = [
   {
     id: 'm1-water',
@@ -9,11 +10,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'water',
     briefingText:
-      'CELL — the Unbinding has reached the lowlands. Bonds are slipping; matter is forgetting how to hold itself. We need an anchor, and the oldest anchor is WATER. Two of Hydrogen, one of Oxygen. Bring them into the holding field and we will teach them to clasp again. Move before the ground does.',
+      'תא — ההתרה הגיעה אל השפלה. הקשרים נשמטים; החומר שוכח כיצד לאחוז בעצמו. דרוש לנו עוגן, והעוגן הקדום מכול הוא מים. שניים מן המימן, אחד מן החמצן. הביאו אותם אל שדה האחיזה, ואנו נלמד אותם להיצמד מחדש. נועו בטרם תנוע הקרקע.',
     clueText:
-      'Hydrogen runs frantic where things are small and many — count the loose ones, gather two. Oxygen burns red and waits where the air feels hot. One mouth, two hands: that is all Water asks.',
+      'המימן רץ נרעש היכן שהדברים קטנים ורבים — סִפרו את הפזורים, אִספו שניים. החמצן בוער אדום וממתין היכן שהאוויר חם. פה אחד, שתי ידיים: זה כל מה שהמים מבקשים.',
     revealText:
-      'It holds. The first stable shape in days — two small hands locked to one red mouth, and the static draws back from the edges of the world. WATER stands. The Lattice can breathe through it now. You have bought us ground to stand on. Do not waste it.',
+      'זה אוחז. הצורה היציבה הראשונה זה ימים — שתי ידיים קטנות נעולות אל פה אדום אחד, והרעש נסוג משולי העולם. המים ניצבים. הסריג יכול לנשום דרכם עכשיו. קניתם לנו קרקע לעמוד עליה. אל תבזבזו אותה.',
   },
   {
     id: 'm2-oxygen',
@@ -21,11 +22,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'oxygen_gas',
     briefingText:
-      'The anchor holds, but the cell is starving — the air itself is coming apart. We need OXYGEN GAS: two hungers bound to each other so the rest can breathe. Find two of Oxygen and bring them close. They will not want to let go of you. That is exactly right.',
+      'העוגן אוחז, אך התא גווע ברעב — האוויר עצמו מתפרק. דרוש לנו גז חמצן: שני רעבים הקשורים זה לזה כדי שהיתר יוכל לנשום. מצאו שני אטומי חמצן וקרבו ביניהם. הם לא ירצו להרפות מכם. וזה בדיוק הנכון.',
     clueText:
-      'Twice the red. Where heat gathers and breath comes short, two Oxygens drift apart and ache to pair. Take both. A single one will only reach for your hand instead.',
+      'כפול האדום. היכן שהחום מתקבץ והנשימה מתקצרת, שני חמצנים נסחפים זה מזה וכמהים להזדווג. קחו את שניהם. אחד בודד רק יושיט יד אליכם במקום זאת.',
     revealText:
-      'They snap together with a sound like a held breath released — a double bond drawn tight, and suddenly the air around you means something again. OXYGEN GAS stabilized. The cell breathes. The Unbinding hates a thing that gives life away this freely. Good.',
+      'הם נטרקים יחד בקול כמו נשימה עצורה שמשתחררת — קשר כפול נמתח, ולפתע האוויר סביבכם שב להיות בעל משמעות. גז חמצן יוצב. התא נושם. ההתרה שונאת דבר שמעניק חיים ביד כה רחבה. יפה.',
   },
   {
     id: 'm3-co2',
@@ -33,11 +34,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'carbon_dioxide',
     briefingText:
-      'Last of the descent, CELL. To seal this lowland we need CARBON DIOXIDE — the quiet line that fire leaves behind. One Carbon, the patient architect with four hands, pinned between two of Oxygen’s appetites. Find the builder. Find two hungers. Bring them to the field together.',
+      'אחרון הירידה, תא. כדי לאטום את השפלה הזו דרוש לנו פחמן דו-חמצני — הקו השקט שהאש מותירה אחריה. פחמן אחד, האדריכל הסבלני בעל ארבע הידיים, נעוץ בין שני תאבונות של חמצן. מצאו את הבונה. מצאו שני רעבים. הביאו אותם אל השדה יחדיו.',
     clueText:
-      'Carbon waits where things have burned and gone still — charcoal-grey, four-handed, in no hurry. Flank it with two Oxygens, one to each side. The architect will hold them both at arm’s length, and the line will go straight.',
+      'הפחמן ממתין היכן שהדברים בערו ושככו — אפור-פחם, בעל ארבע ידיים, ללא חיפזון. הקיפו אותו בשני חמצנים, אחד לכל צד. האדריכל יחזיק את שניהם במרחק זרוע, והקו יימתח ישר.',
     revealText:
-      'Carbon takes an Oxygen in each grip and the three lock into a single quiet line — straight, balanced, finished. CARBON DIOXIDE stabilized. The lowland stops dissolving. Three shapes stand where there was only static. The Lattice marks this cell. The descent is yours.',
+      'הפחמן אוחז חמצן בכל כף יד, והשלושה ננעלים לכדי קו שקט אחד — ישר, מאוזן, גמור. פחמן דו-חמצני יוצב. השפלה חדלה להתמוסס. שלוש צורות ניצבות היכן שהיה רק רעש. הסריג מסמן את התא הזה. הירידה שלכם.',
   },
 ]
 

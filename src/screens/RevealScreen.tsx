@@ -6,6 +6,7 @@ import { MISSIONS } from '../data/missions'
 import MoleculeSchematic from '../components/MoleculeSchematic'
 import Typewriter from '../components/Typewriter'
 import CodexCard from '../components/CodexCard'
+import Code from '../components/Code'
 import { formulaLabel } from '../utils/format'
 import { hapticMedium } from '../utils/haptics'
 
@@ -25,17 +26,17 @@ export default function RevealScreen() {
         transition={{ duration: 0.7 }}
         className="flex flex-col items-center gap-2"
       >
-        <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ STABILIZED</span>
+        <span className="mono text-[11px] tracking-[0.35em] text-signal/60">◈ מיוצב</span>
         <MoleculeSchematic
           moleculeId={molecule.id}
           filled={molecule.formula}
           size={200}
         />
-        <h1 className="mono mt-1 text-2xl uppercase tracking-[0.2em] text-signal text-glow">
+        <h1 className="mono mt-1 text-2xl tracking-[0.2em] text-signal text-glow">
           {molecule.displayName}
         </h1>
         <span className="mono text-sm tracking-[0.3em] text-signal/70">
-          {formulaLabel(molecule.formula)}
+          <Code>{formulaLabel(molecule.formula)}</Code>
         </span>
       </motion.div>
 
@@ -43,7 +44,7 @@ export default function RevealScreen() {
         <Typewriter
           text={molecule ? revealTextFor(molecule.id) : ''}
           speed={16}
-          className="mono text-center text-[13px] leading-relaxed text-[#bfefff]/90"
+          className="mono text-center text-[15px] leading-relaxed text-[#bfefff]/90"
           onDone={() => setShowCard(true)}
         />
       </div>
@@ -64,7 +65,7 @@ export default function RevealScreen() {
               continueFromReveal()
             }}
           >
-            Continue the Descent
+            המשיכו בירידה
           </button>
         </motion.div>
       )}

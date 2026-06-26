@@ -1,42 +1,43 @@
 import type { Molecule } from '../types'
 
 // Everything the Lattice knows how to stabilize. The Codex is built from this.
+// Hebrew copy is a first draft (Yon to polish); id/formula/act/center are data.
 export const MOLECULES: Record<string, Molecule> = {
   water: {
     id: 'water',
-    displayName: 'Water',
+    displayName: 'מים',
     formula: { H: 2, O: 1 },
     act: 1,
     centerSymbol: 'O',
     codexEntry:
-      'Two small hands and one hungry mouth. Water is where the world keeps its memory — the first stable thing, and the last to let go. With it, the Lattice can hold a shape again.',
+      'שתי ידיים קטנות ופה רעב אחד. המים הם המקום שבו העולם שומר את זיכרונו — הדבר היציב הראשון, והאחרון להרפות. עִמם, הסריג יכול שוב לאחוז בצורה.',
   },
   oxygen_gas: {
     id: 'oxygen_gas',
-    displayName: 'Oxygen Gas',
+    displayName: 'גז חמצן',
     formula: { O: 2 },
     act: 1,
     centerSymbol: 'O',
     codexEntry:
-      'Two hungers, bound to each other so the rest of the world can breathe. A double bond, taut as a drawn wire. Volatile, generous, alive.',
+      'שני רעבים, קשורים זה לזה כדי שכל היתר יוכל לנשום. קשר כפול, מתוח כמו תיל דרוך. הפכפך, נדיב, חי.',
   },
   carbon_dioxide: {
     id: 'carbon_dioxide',
-    displayName: 'Carbon Dioxide',
+    displayName: 'פחמן דו-חמצני',
     formula: { C: 1, O: 2 },
     act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'The architect, pinned between two appetites. Carbon Dioxide is what remains when fire has finished its work — a straight, quiet line. The world exhales it and the world drinks it back.',
+      'האדריכל, נעוץ בין שני תאבונות. הפחמן הדו-חמצני הוא מה שנותר כשהאש סיימה את מלאכתה — קו שקט וישר. העולם נושף אותו, והעולם שותה אותו בחזרה.',
   },
   methane: {
     id: 'methane',
-    displayName: 'Methane',
+    displayName: 'מתאן',
     formula: { C: 1, H: 4 },
     act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'One architect, four eager hands clasped tight. Methane is the simplest thing Carbon builds, and the first whisper of everything that can burn, grow, or live.',
+      'אדריכל אחד, ארבע ידיים להוטות אחוזות היטב. המתאן הוא הדבר הפשוט ביותר שהפחמן בונה, והלחישה הראשונה של כל מה שיכול לבעור, לצמוח או לחיות.',
   },
 }
 

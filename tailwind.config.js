@@ -18,7 +18,7 @@ export default {
       fontFamily: {
         // Monospace = "this is a transmission from a machine"
         mono: ['"Space Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        display: ['"Heebo"', 'system-ui', 'sans-serif'],
       },
       animation: {
         'breathe': 'breathe 4s ease-in-out infinite',

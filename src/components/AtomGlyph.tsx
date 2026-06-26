@@ -124,6 +124,7 @@ export default function AtomGlyph({
           y={c}
           textAnchor="middle"
           dominantBaseline="central"
+          direction="ltr"
           fontFamily="'Space Mono', monospace"
           fontWeight={700}
           fontSize={size * (symbol.length > 1 ? 0.42 : 0.52)}

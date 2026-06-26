@@ -4,6 +4,7 @@ import { useSession } from './store/session'
 import { ALL_MOLECULE_IDS } from './data/molecules'
 import { useMagister } from './audio/useMagister'
 import Background from './components/Background'
+import Code from './components/Code'
 import ScanToast from './components/ScanToast'
 import BootScreen from './screens/BootScreen'
 import BriefingScreen from './screens/BriefingScreen'
@@ -56,11 +57,13 @@ export default function App() {
       {hasBooted && phase !== 'reveal' && (
         <button
           onClick={() => setCodexOpen(true)}
-          className="mono hud-frame fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-sm bg-void-900/70 px-3 py-2 text-[10px] tracking-[0.25em] text-signal/70 backdrop-blur active:text-signal"
+          className="mono hud-frame fixed bottom-4 end-4 z-50 flex items-center gap-2 rounded-sm bg-void-900/70 px-3 py-2 text-[11px] tracking-[0.25em] text-signal/70 backdrop-blur active:text-signal"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          ◈ CODEX
-          <span className="text-signal/40">{codexCount}/{ALL_MOLECULE_IDS.length}</span>
+          ◈ הקודקס
+          <span className="text-signal/40">
+            <Code>{codexCount}/{ALL_MOLECULE_IDS.length}</Code>
+          </span>
         </button>
       )}
 
@@ -73,11 +76,11 @@ export default function App() {
       {onBoot && (
         <button
           onClick={() => {
-            if (confirm('Sever the channel and wipe this cell? This cannot be undone.')) resetSession()
+            if (confirm('לנתק את הערוץ ולמחוק את התא הזה? אין דרך חזרה.')) resetSession()
           }}
           className="mono fixed bottom-3 left-1/2 z-50 -translate-x-1/2 text-[9px] tracking-[0.2em] text-signal/20 active:text-signal/60"
         >
-          sever channel
+          נתק ערוץ
         </button>
       )}
     </div>

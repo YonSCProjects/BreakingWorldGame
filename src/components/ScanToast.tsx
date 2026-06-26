@@ -3,34 +3,38 @@ import type { ScanOutcome } from '../types'
 import { ELEMENTS } from '../data/elements'
 
 // In-world phrasing for every scan outcome. Never "error", never "invalid".
+// Framed verb-first ("we locked the X") so it stays clean across Hebrew gender.
+// First-draft Hebrew — Yon to polish; must echo the Magister's spoken lines.
 export function outcomeMessage(o: ScanOutcome): { text: string; good: boolean } {
   switch (o.kind) {
-    case 'accepted':
+    case 'accepted': {
+      const name = ELEMENTS[o.element]?.name ?? o.element
       return {
         text: o.ready
-          ? `${ELEMENTS[o.element]?.name ?? o.element} locked. The set is complete — all hands to the lattice.`
-          : `${ELEMENTS[o.element]?.name ?? o.element} locked into the holding field.`,
+          ? `נעלנו את ה${name}. המערך שלם — כל הידיים אל הסריג.`
+          : `נעלנו את ה${name} בשדה האחיזה.`,
         good: true,
       }
+    }
     case 'duplicate':
-      return { text: 'This atom is already bound — find another.', good: false }
+      return { text: 'האטום הזה כבר קשור — מצאו אחר.', good: false }
     case 'wrong-element':
       return {
-        text: `${ELEMENTS[o.element]?.name ?? o.element} won't hold in this bond. Not what we came for.`,
+        text: `ה${ELEMENTS[o.element]?.name ?? o.element} לא יאחז בקשר הזה. לא לזה באנו.`,
         good: false,
       }
     case 'already-full':
       return {
-        text: `The field already holds all the ${ELEMENTS[o.element]?.name ?? o.element} this bond needs.`,
+        text: `השדה כבר מחזיק את כל ה${ELEMENTS[o.element]?.name ?? o.element} שהקשר הזה צריך.`,
         good: false,
       }
     case 'noble':
       return {
-        text: `${ELEMENTS[o.element]?.name ?? o.element} is sealed — it bonds with nothing. A dead end. Note it and move on.`,
+        text: `ה${ELEMENTS[o.element]?.name ?? o.element} חתום — הוא אינו נקשר לדבר. מבוי סתום. סַמנו והמשיכו.`,
         good: false,
       }
     case 'unknown':
-      return { text: 'The signal is noise. That mark means nothing to the Lattice.', good: false }
+      return { text: 'האות הזה הוא רעש. הסימן הזה אינו אומר דבר לסריג.', good: false }
   }
 }
 
@@ -61,7 +65,7 @@ function Body({ scan }: { scan: ScanOutcome & { ts: number } }) {
   const { text, good } = outcomeMessage(scan)
   return (
     <div
-      className="mono hud-frame rounded-sm px-4 py-3 text-center text-xs leading-relaxed backdrop-blur-md"
+      className="mono hud-frame rounded-sm px-4 py-3 text-center text-sm leading-relaxed backdrop-blur-md"
       style={{
         background: good ? 'rgba(8,20,24,0.82)' : 'rgba(24,8,14,0.82)',
         borderColor: good ? 'rgba(94,242,255,0.4)' : 'rgba(255,94,122,0.45)',

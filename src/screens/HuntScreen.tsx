@@ -7,6 +7,7 @@ import { ELEMENTS } from '../data/elements'
 import { isFormulaComplete } from '../store/verify'
 import Scanner from '../components/Scanner'
 import AtomGlyph from '../components/AtomGlyph'
+import Code from '../components/Code'
 import { hapticLight, hapticReject, hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
 
@@ -64,11 +65,11 @@ export default function HuntScreen() {
 
         {/* mission target prompt, top */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-col items-center gap-1 pt-5">
-          <span className="mono text-[10px] tracking-[0.3em] text-signal/60">
-            ◈ SENSOR FIELD · ACT {mission.act}
+          <span className="mono text-[11px] tracking-[0.3em] text-signal/60">
+            ◈ שדה החיישנים · מערכה <Code>{mission.act}</Code>
           </span>
-          <span className="mono text-xs uppercase tracking-[0.2em] text-signal text-glow">
-            seeking {molecule.displayName} · {formulaLabel(molecule.formula)}
+          <span className="mono text-sm tracking-[0.2em] text-signal text-glow">
+            מחפשים {molecule.displayName} · <Code>{formulaLabel(molecule.formula)}</Code>
           </span>
         </div>
 
@@ -99,14 +100,14 @@ export default function HuntScreen() {
       {/* ── the holding field along the bottom ───────────────────────── */}
       <div className="relative z-10 border-t border-signal/20 bg-void-900/85 px-4 pb-5 pt-4 backdrop-blur-md">
         <div className="mb-3 flex items-center justify-between">
-          <span className="mono text-[10px] tracking-[0.3em] text-signal/60">
-            HOLDING FIELD
+          <span className="mono text-[11px] tracking-[0.3em] text-signal/60">
+            שדה האחיזה
           </span>
           <button
             className="mono text-[10px] tracking-[0.2em] text-signal/35 active:text-signal"
             onClick={() => setShowSim((v) => !v)}
           >
-            ◇ TEST INJECTOR
+            ◇ מזרק בדיקה
           </button>
         </div>
 
@@ -139,7 +140,7 @@ export default function HuntScreen() {
                 goto('bond')
               }}
             >
-              The set is whole · Forge the bond
+              המערך שלם · צרו את הקשר
             </motion.button>
           )}
         </AnimatePresence>
@@ -200,8 +201,8 @@ function SimInjector({ onInject }: { onInject: (raw: string) => void }) {
   }
   return (
     <div className="mt-3 rounded-sm border border-signal/15 bg-void-800/60 p-3">
-      <p className="mono mb-2 text-[9px] tracking-[0.25em] text-signal/40">
-        TEST INJECTOR · STANDS IN FOR A PRINTED CARD
+      <p className="mono mb-2 text-[10px] tracking-[0.25em] text-signal/40">
+        מזרק בדיקה · תחליף לקלף מודפס
       </p>
       <div className="flex flex-wrap gap-1.5">
         {elements.map((sym) => (
@@ -211,7 +212,7 @@ function SimInjector({ onInject }: { onInject: (raw: string) => void }) {
             className="mono rounded-sm border border-signal/25 px-2 py-1 text-[11px] text-signal/80 active:bg-signal/10"
             style={{ borderColor: `${ELEMENTS[sym].color}55`, color: ELEMENTS[sym].color }}
           >
-            +{sym}
+            <Code>+{sym}</Code>
           </button>
         ))}
       </div>

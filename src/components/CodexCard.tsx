@@ -1,5 +1,6 @@
 import { MOLECULES } from '../data/molecules'
 import MoleculeSchematic from './MoleculeSchematic'
+import Code from './Code'
 import { formulaLabel } from '../utils/format'
 
 type Props = {
@@ -35,17 +36,17 @@ export default function CodexCard({ moleculeId, unlocked, compact, onClick }: Pr
 
       {unlocked ? (
         <>
-          <span className="mono text-xs uppercase tracking-[0.18em] text-signal text-glow">
+          <span className="mono text-xs tracking-[0.18em] text-signal text-glow">
             {m.displayName}
           </span>
           <span className="mono text-[10px] tracking-[0.25em] text-signal/60">
-            {formulaLabel(m.formula)}
+            <Code>{formulaLabel(m.formula)}</Code>
           </span>
         </>
       ) : (
         <>
           <span className="mono text-xs tracking-[0.3em] text-signal/40">— — —</span>
-          <span className="mono text-[9px] tracking-[0.25em] text-signal/30">UNSTABILIZED</span>
+          <span className="mono text-[10px] tracking-[0.25em] text-signal/30">לא מיוצב</span>
         </>
       )}
     </button>

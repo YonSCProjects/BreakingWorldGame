@@ -165,6 +165,7 @@ export default function MoleculeSchematic({
               y={s.y}
               textAnchor="middle"
               dominantBaseline="central"
+              direction="ltr"
               fontFamily="'Space Mono', monospace"
               fontWeight={700}
               fontSize={atomR * (s.symbol.length > 1 ? 0.85 : 1.05)}
