@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from '../store/session'
+import { useRoom } from '../net/roomClient'
 import { MISSIONS } from '../data/missions'
 import { MOLECULES } from '../data/molecules'
 import { ELEMENTS } from '../data/elements'
@@ -15,6 +16,9 @@ export default function HuntScreen() {
   const tray = useSession((s) => s.session.tray)
   const claimCard = useSession((s) => s.claimCard)
   const goto = useSession((s) => s.goto)
+  const mode = useSession((s) => s.mode)
+  const lastScan = useSession((s) => s.lastScan)
+  const netScan = useRoom((s) => s.scan)
 
   const mission = MISSIONS[idx]
   const molecule = mission ? MOLECULES[mission.targetMoleculeId] : undefined
@@ -25,23 +29,32 @@ export default function HuntScreen() {
 
   const ready = molecule ? isFormulaComplete(tray, molecule) : false
 
-  // central claim handler shared by camera + simulate injector
+  // central claim handler shared by camera + simulate injector. In field mode
+  // the scan goes to the team room; the outcome (and FX) come back via lastScan.
   const handleScan = (raw: string) => {
     if (busyRef.current) return
     busyRef.current = true
-    const outcome = claimCard(raw)
-    if (outcome.kind === 'accepted') {
-      const color = ELEMENTS[outcome.element]?.color ?? '#5ef2ff'
-      setBurst({ color, ts: Date.now() })
-      hapticLight()
-    } else {
-      hapticReject()
-    }
+    if (mode === 'field') netScan(raw)
+    else claimCard(raw)
     // brief lock so a held QR can't double-fire through our own handler
     window.setTimeout(() => {
       busyRef.current = false
     }, 700)
   }
+
+  // Drive materialize burst + haptics off the latest scan outcome — unified for
+  // solo (claimCard set it) and field (the room bridge set it).
+  const fxTs = useRef(0)
+  useEffect(() => {
+    if (!lastScan || lastScan.ts === fxTs.current) return
+    fxTs.current = lastScan.ts
+    if (lastScan.kind === 'accepted') {
+      setBurst({ color: ELEMENTS[lastScan.element]?.color ?? '#5ef2ff', ts: lastScan.ts })
+      hapticLight()
+    } else {
+      hapticReject()
+    }
+  }, [lastScan])
 
   if (!mission || !molecule) return null
 

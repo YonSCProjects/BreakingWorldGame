@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lattice-rooms",
+  "main": "src/index.ts",
+  // Supported by both the local runtime and production; we don't rely on any
+  // feature newer than this (close handling is explicit, not auto-reply).
+  "compatibility_date": "2025-07-01",
+  "durable_objects": {
+    "bindings": [{ "name": "TEAM_ROOM", "class_name": "TeamRoom" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["TeamRoom"] }],
+  "observability": { "enabled": true }
+}

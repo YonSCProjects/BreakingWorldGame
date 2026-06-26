@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from './store/session'
+import { useRoom } from './net/roomClient'
 import { ALL_MOLECULE_IDS } from './data/molecules'
 import Background from './components/Background'
 import ScanToast from './components/ScanToast'
@@ -10,74 +11,196 @@ import HuntScreen from './screens/HuntScreen'
 import BondScreen from './screens/BondScreen'
 import RevealScreen from './screens/RevealScreen'
 import CodexScreen from './screens/CodexScreen'
+import EntryScreen from './screens/EntryScreen'
+import JoinScreen from './screens/JoinScreen'
+import ControlDashboard from './screens/ControlDashboard'
+import FieldBridge from './net/FieldBridge'
+
+type Choice = 'solo' | 'field' | 'control'
 
 export default function App() {
   const phase = useSession((s) => s.phase)
   const hasBooted = useSession((s) => s.hasBooted)
+  const mode = useSession((s) => s.mode)
   const lastScan = useSession((s) => s.lastScan)
   const codexCount = useSession((s) => s.session.codexMolecules.length)
   const resetSession = useSession((s) => s.resetSession)
-  const [codexOpen, setCodexOpen] = useState(false)
+  const setMode = useSession((s) => s.setMode)
 
-  // The Unbinding recedes as the Codex fills — pristine void at 100%.
+  const role = useRoom((s) => s.role)
+  const leaveRoom = useRoom((s) => s.leave)
+
+  const [codexOpen, setCodexOpen] = useState(false)
+  const [chose, setChose] = useState<Choice | null>(null)
+
+  // The Unbinding recedes as the Codex fills.
   const unbinding = Math.max(0.12, 0.7 - (codexCount / ALL_MOLECULE_IDS.length) * 0.6)
-  const onBoot = phase === 'boot' && !hasBooted
+
+  // ── route resolution ──────────────────────────────────────────────────
+  const route =
+    role === 'control'
+      ? 'control'
+      : role === 'field'
+        ? 'field'
+        : chose === 'field'
+          ? 'join-field'
+          : chose === 'control'
+            ? 'join-control'
+            : chose === 'solo'
+              ? 'solo'
+              : mode === 'solo' && hasBooted
+                ? 'solo'
+                : 'entry'
+
+  const backToEntry = () => {
+    leaveRoom()
+    setChose(null)
+  }
+
+  const onBootScreen = route === 'solo' && phase === 'boot' && !hasBooted
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <Background unbinding={onBoot ? 0.8 : unbinding} />
+      <Background
+        unbinding={route === 'entry' || onBootScreen ? 0.8 : unbinding}
+        particleColor={route === 'control' ? '#8b7bff' : '#5ef2ff'}
+      />
 
-      {/* the active screen */}
+      {/* networked field devices keep the local view-model synced to the room */}
+      {route === 'field' && <FieldBridge />}
+
       <main className="relative z-10 h-full w-full overflow-y-auto no-scrollbar">
         <AnimatePresence mode="wait">
           <motion.div
-            key={phase}
+            key={route === 'solo' || route === 'field' ? `game-${phase}` : route}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.4 }}
             className="min-h-full"
           >
-            {phase === 'boot' && <BootScreen />}
-            {phase === 'briefing' && <BriefingScreen />}
-            {phase === 'hunt' && <HuntScreen />}
-            {phase === 'bond' && <BondScreen />}
-            {phase === 'reveal' && <RevealScreen />}
+            {route === 'entry' && (
+              <EntryScreen
+                onChoose={(c) => {
+                  if (c === 'solo') setMode('solo')
+                  setChose(c)
+                }}
+              />
+            )}
+            {route === 'join-field' && <JoinScreen role="field" onBack={() => setChose(null)} />}
+            {route === 'join-control' && <JoinScreen role="control" onBack={() => setChose(null)} />}
+            {route === 'control' && <ControlDashboard onLeave={backToEntry} />}
+
+            {(route === 'solo' || route === 'field') && (
+              <>
+                {phase === 'boot' && route === 'solo' && <BootScreen />}
+                {phase === 'briefing' && <BriefingScreen />}
+                {phase === 'hunt' && <HuntScreen />}
+                {phase === 'bond' && <BondScreen />}
+                {phase === 'reveal' && <RevealScreen />}
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </main>
 
-      {/* in-world scan toasts */}
-      <ScanToast scan={lastScan} />
+      {/* in-world scan toasts (solo + field) */}
+      {(route === 'solo' || route === 'field') && <ScanToast scan={lastScan} />}
 
-      {/* persistent, subtle Codex control (hidden on boot) */}
-      {hasBooted && phase !== 'reveal' && (
+      {/* field: incoming hints + connection status */}
+      {route === 'field' && <FieldOverlays />}
+
+      {/* persistent, subtle Codex control during a game */}
+      {(route === 'solo' || route === 'field') && hasBooted && phase !== 'reveal' && (
         <button
           onClick={() => setCodexOpen(true)}
           className="mono hud-frame fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-sm bg-void-900/70 px-3 py-2 text-[10px] tracking-[0.25em] text-signal/70 backdrop-blur active:text-signal"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
           ◈ CODEX
-          <span className="text-signal/40">{codexCount}/{ALL_MOLECULE_IDS.length}</span>
+          <span className="text-signal/40">
+            {codexCount}/{ALL_MOLECULE_IDS.length}
+          </span>
         </button>
       )}
 
-      {/* Codex overlay */}
-      <AnimatePresence>
-        {codexOpen && <CodexScreen onClose={() => setCodexOpen(false)} />}
-      </AnimatePresence>
+      <AnimatePresence>{codexOpen && <CodexScreen onClose={() => setCodexOpen(false)} />}</AnimatePresence>
 
-      {/* tiny reset, only on the cold-open, for replays/testing */}
-      {onBoot && (
+      {/* leave / sever controls */}
+      {route === 'field' && phase === 'briefing' && (
+        <button
+          onClick={backToEntry}
+          className="mono fixed bottom-4 left-4 z-50 text-[9px] tracking-[0.2em] text-signal/25 active:text-signal/60"
+          style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+        >
+          ▸ leave team
+        </button>
+      )}
+      {onBootScreen && (
+        <button
+          onClick={() => setChose(null)}
+          className="mono fixed left-4 top-4 z-50 text-[10px] tracking-[0.2em] text-signal/30 active:text-signal/70"
+        >
+          ‹ stations
+        </button>
+      )}
+      {route === 'solo' && hasBooted && phase === 'briefing' && (
         <button
           onClick={() => {
             if (confirm('Sever the channel and wipe this cell? This cannot be undone.')) resetSession()
           }}
-          className="mono fixed bottom-3 left-1/2 z-50 -translate-x-1/2 text-[9px] tracking-[0.2em] text-signal/20 active:text-signal/60"
+          className="mono fixed bottom-4 left-4 z-50 text-[9px] tracking-[0.2em] text-signal/25 active:text-signal/60"
+          style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          sever channel
+          ▸ sever channel
         </button>
       )}
     </div>
+  )
+}
+
+// Field-only: surfaces incoming control-room hints as Lattice transmissions
+// and shows a quiet banner if the channel drops.
+function FieldOverlays() {
+  const status = useRoom((s) => s.status)
+  const lastHint = useRoom((s) => s.lastHint)
+  const [hint, setHint] = useState<string | null>(null)
+  const hintTs = useRef(0)
+
+  useEffect(() => {
+    if (lastHint && lastHint.ts !== hintTs.current) {
+      hintTs.current = lastHint.ts
+      setHint(lastHint.text)
+      const t = setTimeout(() => setHint(null), 8000)
+      return () => clearTimeout(t)
+    }
+  }, [lastHint])
+
+  return (
+    <>
+      <AnimatePresence>
+        {hint && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
+            className="pointer-events-none fixed inset-x-0 bottom-20 z-50 mx-auto w-[88%] max-w-md"
+            onClick={() => setHint(null)}
+          >
+            <div className="hud-frame rounded-sm bg-void-900/85 px-4 py-3 text-center backdrop-blur-md"
+              style={{ borderColor: 'rgba(139,123,255,0.5)' }}>
+              <p className="mono text-[9px] tracking-[0.3em] text-lattice/70">◈ CONTROL ROOM</p>
+              <p className="mono mt-1 text-[12px] leading-relaxed text-[#d7c8ff]/90">{hint}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {status !== 'open' && (
+        <div className="mono fixed left-1/2 top-3 z-50 -translate-x-1/2 rounded-sm border border-warn/40 bg-void-900/80 px-3 py-1 text-[9px] tracking-[0.2em] text-warn/90 backdrop-blur">
+          {status === 'reconnecting' ? '◴ RE-LINKING…' : '◴ LINKING…'}
+        </div>
+      )}
+    </>
   )
 }

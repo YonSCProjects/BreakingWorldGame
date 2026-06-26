@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from '../store/session'
+import { useRoom } from '../net/roomClient'
 import { MISSIONS } from '../data/missions'
 import { MOLECULES } from '../data/molecules'
 import { ELEMENTS } from '../data/elements'
@@ -12,6 +13,8 @@ export default function BondScreen() {
   const tray = useSession((s) => s.session.tray)
   const completeBond = useSession((s) => s.completeBond)
   const goto = useSession((s) => s.goto)
+  const mode = useSession((s) => s.mode)
+  const netConfirm = useRoom((s) => s.staffConfirm)
 
   const mission = MISSIONS[idx]
   const molecule = mission ? MOLECULES[mission.targetMoleculeId] : undefined
@@ -57,7 +60,10 @@ export default function BondScreen() {
     sealedRef.current = true
     setSealed(true)
     hapticSeal()
-    window.setTimeout(() => completeBond(), 900)
+    // Solo: seal locally. Field: ask the room to seal; the FieldBridge moves us
+    // to the reveal when the server confirms (and the control room celebrates too).
+    if (mode === 'field') netConfirm()
+    else window.setTimeout(() => completeBond(), 900)
   }
 
   // ── input: touch (multi-finger) with a pointer fallback for desktop ──

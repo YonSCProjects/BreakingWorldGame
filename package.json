@@ -13,10 +13,14 @@
     "qr": "node scripts/generate-qr.mjs"
   },
   "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@types/three": "^0.160.0",
     "framer-motion": "^11.3.8",
     "html5-qrcode": "^2.3.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "three": "^0.160.1",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

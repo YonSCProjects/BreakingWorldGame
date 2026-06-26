@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "esModuleInterop": true
+  },
+  // Includes the shared src/ modules the Worker imports (data + verify + protocol).
+  "include": ["src/**/*", "../src/data", "../src/store/verify.ts", "../src/net", "../src/types.ts"]
+}

@@ -8,6 +8,10 @@ dist-ssr
 # generated kit output (regenerate with `npm run qr`)
 qr-kit
 
+# cloudflare / wrangler local state + secrets
+.wrangler
+.dev.vars
+
 # editor
 .vscode/*
 !.vscode/extensions.json
