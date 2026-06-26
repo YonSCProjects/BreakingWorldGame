@@ -32,11 +32,6 @@ jobs:
       - run: npm ci
       - run: npm run build -- --base=/BreakingWorldGame/
       - uses: actions/configure-pages@v5
-        with:
-          # Try to turn Pages on automatically so there's no manual setup step.
-          # If your org blocks this, enable it once: Settings → Pages → Source →
-          # "GitHub Actions", then re-run this workflow.
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
