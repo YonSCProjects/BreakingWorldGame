@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+.DS_Store
+
+# generated kit output (regenerate with `npm run qr`)
+qr-kit
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
