@@ -8,6 +8,10 @@ dist-ssr
 # generated kit output (regenerate with `npm run qr`)
 qr-kit
 
+# VO masters: un-normalized ElevenLabs downloads. The final *.mp3 (post-ffmpeg)
+# ARE committed; these raw masters stay local so re-processing costs no credits.
+public/vo/*.raw.mp3
+
 # editor
 .vscode/*
 !.vscode/extensions.json

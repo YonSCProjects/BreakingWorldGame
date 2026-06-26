@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from './store/session'
 import { ALL_MOLECULE_IDS } from './data/molecules'
+import { useMagister } from './audio/useMagister'
 import Background from './components/Background'
 import ScanToast from './components/ScanToast'
 import BootScreen from './screens/BootScreen'
@@ -12,6 +13,7 @@ import RevealScreen from './screens/RevealScreen'
 import CodexScreen from './screens/CodexScreen'
 
 export default function App() {
+  useMagister() // the Magister speaks across the loop (no-op until audio unlocks)
   const phase = useSession((s) => s.phase)
   const hasBooted = useSession((s) => s.hasBooted)
   const lastScan = useSession((s) => s.lastScan)

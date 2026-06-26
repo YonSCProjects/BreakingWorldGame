@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { useSession } from '../store/session'
 import Typewriter from '../components/Typewriter'
 import { hapticLight, hapticMedium } from '../utils/haptics'
+import { audio } from '../audio/AudioEngine'
+import { BOOT_COLD_OPEN } from '../audio/cues'
 
 const COLD_OPEN = `If you are reading this, the channel held.
 
@@ -12,14 +14,18 @@ This device is a window into that unraveling, and your hands are the last we hav
 
 First, tell us who you are. Every cell that still stands has a name.`
 
-type Stage = 'static' | 'lock' | 'transmit' | 'name'
+type Stage = 'dormant' | 'static' | 'lock' | 'transmit' | 'name'
 
 export default function BootScreen() {
   const namecell = useSession((s) => s.namecell)
-  const [stage, setStage] = useState<Stage>('static')
+  const [stage, setStage] = useState<Stage>('dormant')
+  const [woke, setWoke] = useState(false)
   const [name, setName] = useState('')
 
+  // The power-on timeline only begins once the device has been WOKEN — the wake
+  // tap is also the user gesture that unlocks audio (iOS blocks it otherwise).
   useEffect(() => {
+    if (!woke) return
     const t1 = setTimeout(() => setStage('lock'), 1400)
     const t2 = setTimeout(() => {
       hapticMedium()
@@ -29,7 +35,17 @@ export default function BootScreen() {
       clearTimeout(t1)
       clearTimeout(t2)
     }
-  }, [])
+  }, [woke])
+
+  // One tap: prime audio inside the gesture, let the Magister breathe, and start
+  // the power-on sequence. unlock() resolves before we play so iOS lets it sound.
+  const wakeDevice = async () => {
+    hapticMedium()
+    await audio.unlock()
+    void audio.play(BOOT_COLD_OPEN)
+    setStage('static')
+    setWoke(true)
+  }
 
   const engage = () => {
     hapticMedium()
@@ -38,6 +54,34 @@ export default function BootScreen() {
 
   return (
     <div className="relative z-10 flex min-h-full flex-col items-center justify-center px-7 py-10">
+      {/* dormant: a sleeping relic. The tap here wakes it AND unlocks audio. */}
+      {stage === 'dormant' && (
+        <motion.button
+          type="button"
+          onClick={wakeDevice}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          className="flex flex-col items-center gap-7 outline-none"
+          aria-label="Wake the device"
+        >
+          <motion.div
+            animate={{ opacity: [0.25, 0.8, 0.25], scale: [0.95, 1, 0.95] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative flex h-28 w-28 items-center justify-center"
+          >
+            <span className="absolute inset-0 rounded-full border border-signal/40" />
+            <span className="absolute inset-5 rounded-full bg-signal/10 blur-md" />
+            <span className="text-3xl text-signal/80 text-glow">◈</span>
+          </motion.div>
+          <p className="mono max-w-[15rem] text-center text-[11px] leading-[2] tracking-[0.25em] text-signal/45">
+            THE DEVICE SLEEPS
+            <br />
+            PRESS YOUR PALM TO THE SIGIL
+          </p>
+        </motion.button>
+      )}
+
       {/* power-on static flash */}
       {stage === 'static' && (
         <motion.div
