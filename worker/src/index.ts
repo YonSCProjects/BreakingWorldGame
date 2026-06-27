@@ -104,8 +104,11 @@ export class TeamRoom extends DurableObject<Env> {
           }
           await this.persist()
         }
-        // Everyone hears the result (drives materialize FX), then the new state.
-        this.broadcast({ type: 'scanResult', outcome, cardId: msg.cardId })
+        // Only the phone that scanned reacts (toast + materialize FX + voice),
+        // so with several field phones per team they don't ALL buzz/speak on
+        // every scan. Everyone still gets the new shared state, so the atom
+        // appears in the holding field on every device.
+        ws.send(this.encode({ type: 'scanResult', outcome, cardId: msg.cardId }))
         this.broadcastState()
         break
       }
