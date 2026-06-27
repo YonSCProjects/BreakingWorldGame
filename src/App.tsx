@@ -14,7 +14,9 @@ import CodexScreen from './screens/CodexScreen'
 import EntryScreen from './screens/EntryScreen'
 import JoinScreen from './screens/JoinScreen'
 import ControlDashboard from './screens/ControlDashboard'
+import ManagerPortal from './screens/ManagerPortal'
 import FieldBridge from './net/FieldBridge'
+import { teamByName } from './data/teams'
 
 type Choice = 'solo' | 'field' | 'control'
 
@@ -26,12 +28,37 @@ export default function App() {
   const codexCount = useSession((s) => s.session.codexMolecules.length)
   const resetSession = useSession((s) => s.resetSession)
   const setMode = useSession((s) => s.setMode)
+  const goto = useSession((s) => s.goto)
 
   const role = useRoom((s) => s.role)
+  const join = useRoom((s) => s.join)
   const leaveRoom = useRoom((s) => s.leave)
 
   const [codexOpen, setCodexOpen] = useState(false)
   const [chose, setChose] = useState<Choice | null>(null)
+  // ?manage opens the staff ceremony/roster portal (read once at load).
+  const [manage] = useState(
+    () => typeof location !== 'undefined' && new URLSearchParams(location.search).has('manage'),
+  )
+
+  // Badge deep-link: ?team=EAGLE&role=field|control drops a phone straight into
+  // its Order + station — no menus to argue over.
+  useEffect(() => {
+    if (manage) return
+    const p = new URLSearchParams(location.search)
+    const team = teamByName(p.get('team'))
+    const r = p.get('role')
+    if (team && (r === 'field' || r === 'control')) {
+      if (r === 'field') {
+        setMode('field')
+        goto('briefing')
+      }
+      join(team.name, r, team.name)
+      setChose(r)
+      history.replaceState(null, '', location.pathname)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // The Unbinding recedes as the Codex fills.
   const unbinding = Math.max(0.12, 0.7 - (codexCount / ALL_MOLECULE_IDS.length) * 0.6)
@@ -58,6 +85,23 @@ export default function App() {
   }
 
   const onBootScreen = route === 'solo' && phase === 'boot' && !hasBooted
+
+  // staff ceremony/roster portal takes over the whole screen
+  if (manage) {
+    return (
+      <div className="relative h-full w-full overflow-hidden">
+        <Background unbinding={0.35} particleColor="#8b7bff" />
+        <main className="relative z-10 h-full w-full overflow-y-auto no-scrollbar">
+          <ManagerPortal
+            onExit={() => {
+              history.replaceState(null, '', location.pathname)
+              location.reload()
+            }}
+          />
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className="relative h-full w-full overflow-hidden">

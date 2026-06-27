@@ -1,15 +1,17 @@
-// The cells (teams) for an event. Picking from a fixed list means a field phone
-// and its control room ALWAYS land in the same room — no typos, no two devices
-// drifting into different rooms. Assign one distinct cell per group of players.
+// The three Orders. Each guards one of the three gifts that make life — so all
+// three together "bring the world back to life". Picking from this fixed set
+// (or a badge deep-link) means a field phone and its Seer always share a room.
 //
-// To change names/colours/count, just edit this list.
-export type Team = { name: string; color: string }
+// `name` is the join code + room key. Edit freely.
+export type Team = { name: string; color: string; emoji: string; guards: string }
 
 export const TEAMS: Team[] = [
-  { name: 'AURORA', color: '#5ef2ff' },
-  { name: 'EMBER', color: '#ff7a5e' },
-  { name: 'COMET', color: '#5e8bff' },
-  { name: 'ORION', color: '#c08bff' },
-  { name: 'TITAN', color: '#7dffae' },
-  { name: 'PHOENIX', color: '#ffce54' },
+  { name: 'EAGLE', color: '#ffce54', emoji: '🦅', guards: 'the Air' },
+  { name: 'DOLPHIN', color: '#5ef2ff', emoji: '🐬', guards: 'the Water' },
+  { name: 'LION', color: '#ffa23d', emoji: '🦁', guards: 'the Sun' },
 ]
+
+export function teamByName(n: string | null | undefined): Team | undefined {
+  if (!n) return undefined
+  return TEAMS.find((t) => t.name === n.toUpperCase())
+}
