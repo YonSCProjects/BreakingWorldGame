@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { ScanOutcome } from '../types'
 import { ELEMENTS } from '../data/elements'
+import { playNarration } from '../utils/audio'
 
 // Warm, kid-friendly phrasing. Every "yes" celebrates; every "no" is gentle and
 // encouraging — never "wrong", never blame.
@@ -29,11 +31,38 @@ export function outcomeMessage(o: ScanOutcome): { text: string; good: boolean } 
   }
 }
 
+// Which ראש-המסדר voice clip matches a scan outcome.
+function scanClip(o: ScanOutcome): string {
+  switch (o.kind) {
+    case 'accepted':
+      return o.ready ? 'scan-complete' : 'scan-accepted'
+    case 'duplicate':
+      return 'scan-duplicate'
+    case 'wrong-element':
+      return 'scan-wrong'
+    case 'already-full':
+      return 'scan-enough'
+    case 'noble':
+      return 'scan-noble'
+    case 'unknown':
+      return 'scan-unclear'
+  }
+}
+
 export default function ScanToast({
   scan,
 }: {
   scan: (ScanOutcome & { ts: number }) | null
 }) {
+  // play the matching voice reaction once per scan
+  const lastTs = useRef(0)
+  useEffect(() => {
+    if (scan && scan.ts !== lastTs.current) {
+      lastTs.current = scan.ts
+      playNarration(scanClip(scan))
+    }
+  }, [scan])
+
   return (
     <AnimatePresence>
       {scan && (

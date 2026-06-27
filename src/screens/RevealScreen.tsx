@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useSession } from '../store/session'
 import { MOLECULES } from '../data/molecules'
@@ -8,11 +8,18 @@ import Typewriter from '../components/Typewriter'
 import CodexCard from '../components/CodexCard'
 import { formulaLabel } from '../utils/format'
 import { hapticMedium } from '../utils/haptics'
+import { playNarration } from '../utils/audio'
 
 export default function RevealScreen() {
   const revealedId = useSession((s) => s.revealedMoleculeId)
   const continueFromReveal = useSession((s) => s.continueFromReveal)
   const [showCard, setShowCard] = useState(false)
+
+  // ראש-המסדר narrates the reveal (act 1 only — Hour 2 has no audio yet).
+  useEffect(() => {
+    const m = MISSIONS.find((x) => x.targetMoleculeId === revealedId)
+    if (m && m.act === 1) playNarration(`${m.id}-reveal`)
+  }, [revealedId])
 
   const molecule = revealedId ? MOLECULES[revealedId] : undefined
   if (!molecule) return null

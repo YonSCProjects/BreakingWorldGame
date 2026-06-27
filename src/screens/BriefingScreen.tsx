@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useSession } from '../store/session'
 import { MISSIONS } from '../data/missions'
@@ -8,6 +8,7 @@ import MoleculeSchematic from '../components/MoleculeSchematic'
 import Typewriter from '../components/Typewriter'
 import { hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
+import { playNarration } from '../utils/audio'
 
 // Plain colour words (feminine, to agree with "יחידת חומר") so kids hunt by
 // colour, not chemistry. Singular for 1, plural for 2+.
@@ -40,6 +41,13 @@ export default function BriefingScreen() {
   const beginHunt = useSession((s) => s.beginHunt)
   const mission = MISSIONS[idx]
   const [revealed, setRevealed] = useState(false)
+
+  // ראש-המסדר speaks the briefing, then (when it ends) the clue. Hour 2 has no
+  // audio yet, so only act 1 plays; the act-complete screen plays the finale.
+  useEffect(() => {
+    if (!mission) playNarration('cell-complete')
+    else if (mission.act === 1) playNarration(`${mission.id}-briefing`, `${mission.id}-clue`)
+  }, [mission])
 
   // Act complete — no further missions in v1.
   if (!mission) {

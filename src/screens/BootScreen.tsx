@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useSession } from '../store/session'
 import Typewriter from '../components/Typewriter'
 import { hapticLight, hapticMedium } from '../utils/haptics'
+import { playNarration } from '../utils/audio'
 
 const COLD_OPEN = `האות מצא אתכם. הוא מוצא תמיד רק את הנכונים.
 
@@ -30,6 +31,11 @@ export default function BootScreen() {
       clearTimeout(t2)
     }
   }, [])
+
+  // ראש-המסדר's cold-open plays when the transmission begins (solo).
+  useEffect(() => {
+    if (stage === 'transmit') playNarration('boot-intro')
+  }, [stage])
 
   const engage = () => {
     hapticMedium()

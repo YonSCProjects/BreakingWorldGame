@@ -17,6 +17,7 @@ import ControlDashboard from './screens/ControlDashboard'
 import ManagerPortal from './screens/ManagerPortal'
 import FieldBridge from './net/FieldBridge'
 import { teamByName } from './data/teams'
+import { armAudio, isMuted, setMuted } from './utils/audio'
 
 type Choice = 'solo' | 'field' | 'control'
 
@@ -58,6 +59,11 @@ export default function App() {
       history.replaceState(null, '', location.pathname)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Unlock narration audio on the first user gesture (mobile autoplay policy).
+  useEffect(() => {
+    armAudio()
   }, [])
 
   // The Unbinding recedes as the Codex fills.
@@ -154,6 +160,9 @@ export default function App() {
       {/* field: incoming hints + connection status */}
       {route === 'field' && <FieldOverlays />}
 
+      {/* mute toggle for the narration voice (field/solo) */}
+      {(route === 'solo' || route === 'field') && hasBooted && <MuteToggle />}
+
       {/* persistent, subtle Codex control during a game */}
       {(route === 'solo' || route === 'field') && hasBooted && phase !== 'reveal' && (
         <button
@@ -246,5 +255,23 @@ function FieldOverlays() {
         </div>
       )}
     </>
+  )
+}
+
+// A tiny in-world mute toggle for ראש-המסדר's voice (persisted).
+function MuteToggle() {
+  const [m, setM] = useState(isMuted())
+  return (
+    <button
+      onClick={() => {
+        const next = !m
+        setMuted(next)
+        setM(next)
+      }}
+      className="mono fixed right-4 top-4 z-50 rounded-sm px-2 py-1 text-[10px] tracking-[0.2em] text-signal/40 active:text-signal/80"
+      style={{ marginTop: 'env(safe-area-inset-top)' }}
+    >
+      {m ? '◌ מושתק' : '◉ קול'}
+    </button>
   )
 }
