@@ -44,6 +44,7 @@ const cardHtml = cards
       <div class="crest">${c.emoji}</div>
       <div class="order" style="color:${c.color}">ORDER OF THE ${c.name}</div>
       <div class="role">${c.label}</div>
+      <div class="nameplate"><span class="nlabel">שם · NAME</span><span class="nline"></span></div>
       <div class="qr">${c.svg}</div>
       <div class="hint">guardian of ${c.guards}</div>
     </div>`,
@@ -60,12 +61,15 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><title>Order Badg
   .crest { font-size:54px; line-height:1; }
   .order { font-size:11px; letter-spacing:.18em; margin-top:6px; }
   .role { font-size:18px; font-weight:700; letter-spacing:.2em; margin:2px 0 8px; }
+  .nameplate { margin:4px 0 10px; }
+  .nlabel { display:block; font-size:9px; letter-spacing:.2em; color:#9fb3c8; }
+  .nline { display:block; height:0; border-bottom:1.5px solid #9fb3c8; margin:14px 8px 0; }
   .qr svg { width:42mm; height:42mm; background:#fff; padding:6px; border-radius:6px; }
   .hint { font-size:10px; color:#7e93a8; margin-top:6px; }
-  @media print { body { background:#fff; color:#000 } .card{ background:#fff } }
+  @media print { body { background:#fff; color:#000 } .card{ background:#fff } .nline{ border-color:#333 } }
 </style></head><body>
   <h1>◈ THE THREE ORDERS — JOIN BADGES</h1>
-  <p class="hint">Put the matching QR on each knight's badge. Most kids are KNIGHTS (their Order's Knight QR). Pick ONE SEER per team (the Seer QR). Scanning the badge opens the game already in that Order + station.</p>
+  <p class="hint">Six blank badge templates (no names — write each knight's name by hand in the morning). Print SEVERAL copies of each: most kids are KNIGHTS (their Order's Knight badge); pick ONE SEER per team (the Seer badge). Scanning a badge opens the game already in that Order + station.</p>
   <div class="grid">${cardHtml}</div>
 </body></html>`
 

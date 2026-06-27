@@ -30,6 +30,8 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
   const [present, setPresent] = useState<Set<string>>(new Set())
   const [roster, setRoster] = useState<Knight[]>(loadRoster)
   const [manual, setManual] = useState('')
+  const [manualTeam, setManualTeam] = useState<string | null>(null)
+  const [manualSeer, setManualSeer] = useState(false)
   const [filter, setFilter] = useState('')
   const [ceremony, setCeremony] = useState(false)
 
@@ -58,10 +60,15 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
 
   const addManual = () => {
     const name = manual.trim()
+    if (!name) return setManual('')
+    // typing a name in the morning = arrived, and placed into the chosen Order
+    if (!roster.some((k) => k.name === name)) {
+      setRoster((r) => [...r, { name, team: manualTeam, role: manualSeer ? 'control' : 'field' }])
+    }
+    setPresent((p) => new Set(p).add(name))
     setManual('')
-    if (!name) return
-    if (!roster.some((k) => k.name === name)) setRoster((r) => [...r, { name, team: null, role: 'field' }])
-    setPresent((p) => new Set(p).add(name)) // typing a name in = arrived
+    setManualTeam(null)
+    setManualSeer(false)
   }
 
   const setTeam = (name: string, team: string) =>
@@ -116,23 +123,46 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
           <span className="mono text-[10px] text-signal/50">{calling.length} calling · {roster.length} total</span>
         </div>
 
-        <div className="mb-3 flex gap-2">
+        <input
+          className="field-signal mb-2 w-40 px-3 py-2 text-left text-xs"
+          style={{ textAlign: 'left', textTransform: 'none', letterSpacing: 'normal' }}
+          placeholder="filter…"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+        {/* add a name AND pick their Order in one go */}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <input
-            className="field-signal w-40 px-3 py-2 text-left text-xs"
+            className="field-signal min-w-[8rem] flex-1 px-3 py-2 text-left text-xs"
             style={{ textAlign: 'left', textTransform: 'none', letterSpacing: 'normal' }}
-            placeholder="filter…"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          <input
-            className="field-signal flex-1 px-3 py-2 text-left text-xs"
-            style={{ textAlign: 'left', textTransform: 'none', letterSpacing: 'normal' }}
-            placeholder="add a name by hand…"
+            placeholder="type an arrived name…"
             value={manual}
             onChange={(e) => setManual(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addManual()}
           />
-          <button className="btn-ghost text-xs" onClick={addManual}>
+          {TEAMS.map((t) => (
+            <button
+              key={t.name}
+              onClick={() => setManualTeam((cur) => (cur === t.name ? null : t.name))}
+              title={t.name}
+              className="rounded-sm border px-2 py-1 text-base leading-none"
+              style={{
+                borderColor: manualTeam === t.name ? t.color : 'rgba(255,255,255,0.12)',
+                background: manualTeam === t.name ? `${t.color}22` : 'transparent',
+                opacity: manualTeam === t.name ? 1 : 0.5,
+              }}
+            >
+              {t.emoji}
+            </button>
+          ))}
+          <button
+            onClick={() => setManualSeer((v) => !v)}
+            className="mono rounded-sm border px-2 py-1 text-[10px] tracking-[0.1em]"
+            style={{ borderColor: manualSeer ? '#8b7bff' : 'rgba(255,255,255,0.12)', color: manualSeer ? '#c9beff' : 'rgba(255,255,255,0.4)' }}
+          >
+            SEER
+          </button>
+          <button className="btn-signal px-4 py-2 text-xs" onClick={addManual}>
             Add
           </button>
         </div>
