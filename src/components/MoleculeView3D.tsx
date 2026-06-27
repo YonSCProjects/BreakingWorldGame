@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { ELEMENTS } from '../data/elements'
-import { STRUCTURES } from '../data/structures3d'
+import { structureFor } from '../data/structures3d'
 
 type Props = {
   moleculeId: string
@@ -21,7 +21,7 @@ export default function MoleculeView3D({
   autoRotate = true,
   className = '',
 }: Props) {
-  const struct = STRUCTURES[moleculeId]
+  const struct = structureFor(moleculeId)
 
   // decide which atoms are "lit" by consuming the gathered tally per element
   const lit = useMemo(() => {

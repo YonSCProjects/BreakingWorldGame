@@ -5,11 +5,11 @@ import type { Mission } from '../types'
 // "יחידות חומר" (feminine) in-world. Clues are friendly placeholders — tailor
 // them to where YOU hide the cards.
 //
-// HOUR 1 (act 1): five quick builds, easy → bigger — "find your power". HEBREW.
-// HOUR 2 (act 2): the circle of life — respiration ↔ photosynthesis. Still
-// ENGLISH (its Hebrew is translated separately, after the v2 rewrite).
+// One ~hour of app play (all act 1): eight builds, easy → bigger. M1–M5 are in
+// Hebrew; M6–M8 (oxygen, CO₂, and the GLUCOSE bonus) are still English until
+// translated. Glucose (C₆H₁₂O₆ = 24 atoms) is the giant "champions" build for
+// teams that race ahead.
 export const MISSIONS: Mission[] = [
-  // ── HOUR 1 (Hebrew) ─────────────────────────────────────────────────
   {
     id: 'm1-hydrogen',
     order: 1,
@@ -64,57 +64,47 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'methane',
     briefingText:
-      'אחרונה לפני שאתם נחים: מתאן — הגז שמדליק אש. יחידת חומר אפורה אחת וארבע לבנות. בנייה גדולה. צוות גדול.',
+      'מתאן — הגז שמדליק אש. יחידת חומר אפורה אחת וארבע לבנות. בנייה גדולה, צוות גדול.',
     clueText:
       'האפורה כבדה ואיטית, אז היא לא תהיה רחוקה. ארבע לבנות זה הרבה — חלקו את העבודה וחפשו ביחד.',
     revealText:
-      'מתאן! חמישה חלקים — הבנייה הכי גדולה שלכם עד היום. שעה ראשונה — הושלמה! עכשיו נוחו, שתו קצת מים, נערו את הרגליים. כשתחזרו, מתחיל הסוד האמיתי. הרווחתם את זה.',
+      'מתאן! חמישה חלקים — הבנייה הכי גדולה שלכם עד עכשיו. אתם מכונה משומנת. ממשיכים!',
   },
 
-  // ── HOUR 2 · THE CIRCLE OF LIFE (English — Hebrew pending v2 rewrite) ──
+  // ── Oxygen, CO₂, and the GLUCOSE bonus (English — Hebrew pending) ──────
   {
     id: 'm6-oxygen',
     order: 6,
-    act: 2,
+    act: 1,
     targetMoleculeId: 'oxygen_gas',
     briefingText:
-      'Welcome back, CELL. Here’s the real secret: ENERGY. To run, to move, even to think, your body burns food using OXYGEN — that’s respiration. Let’s make some oxygen: find two red sparks.',
-    clueText: 'Red ones are warm and glowing. You only need two. Go!',
+      'Next: OXYGEN — the air every animal breathes. Two red sparks, that’s all. Easy after methane.',
+    clueText: 'Red ones glow warm — you’ve grabbed them before. Just two this time. Go!',
     revealText:
-      'OXYGEN — half of your fuel. Your cells burn food WITH this to make the energy to move. And when they do, they let something out… come, I’ll show you.',
+      'OXYGEN! The air in your lungs this very second. You made the thing that keeps every animal alive. Nice — keep rolling.',
   },
   {
     id: 'm7-co2',
     order: 7,
-    act: 2,
+    act: 1,
     targetMoleculeId: 'carbon_dioxide',
     briefingText:
-      'When your cells burn food for energy, they let out CARBON DIOXIDE — you make it every second you’re alive. Build it: one grey, two red.',
-    clueText: 'One grey, two red. You’ve found both colours before — you know what to do.',
+      'Now CARBON DIOXIDE — the gas you breathe OUT. One grey spark and two red. You know both colours.',
+    clueText: 'One grey, two red. Grey is heavy and stays low; red glows warm. Grab all three.',
     revealText:
-      'CARBON DIOXIDE — the leftover from making your energy. You let it out… and plants? Plants are HUNGRY for it. Watch what happens next.',
+      'CARBON DIOXIDE! You breathe this out with every breath, and plants drink it in. You’re flying today — one giant build left.',
   },
   {
-    id: 'm8-water-plant',
+    id: 'm8-glucose',
     order: 8,
-    act: 2,
-    targetMoleculeId: 'water',
+    act: 1,
+    targetMoleculeId: 'glucose',
     briefingText:
-      'Making energy also makes WATER — and plants drink it up. Plants take your carbon dioxide, your water, and sunlight to build new food and fresh oxygen. Bring the water: two white, one red.',
-    clueText: 'Two white, one red — same as before. You’re fast at this now.',
+      'The CHAMPIONS’ build, only for the fastest teams: GLUCOSE — the sugar that fuels every living thing. It’s massive: six grey, twelve white, six red. Split up and go big.',
+    clueText:
+      'Twenty-four pieces — the biggest yet. Some hunt grey, some white, some red, and bring them all back together.',
     revealText:
-      'Now the plant has it all — your carbon dioxide, your water, and the sun. It makes FOOD and fresh OXYGEN… the very things your cells need to make energy. One last build, and the circle closes.',
-  },
-  {
-    id: 'm9-breath',
-    order: 9,
-    act: 2,
-    targetMoleculeId: 'oxygen_gas',
-    briefingText:
-      'The finale, CELL. The plant makes OXYGEN and food, so you can make energy and live — and the circle closes. Make the last oxygen: two red sparks. Make it count.',
-    clueText: 'Two red. You know exactly where to look. Finish strong, together.',
-    revealText:
-      'There it is — the CIRCLE OF LIFE. Your cells burn food and oxygen to make energy, and let out carbon dioxide and water. Plants drink those in, catch the sunlight, and make food and oxygen again — for you. Round and round, forever — and the sun powers it all.\n\nAnd the plant needs THREE gifts: air, water, and sun. Eagle, Dolphin, Lion. Alone, each is one piece. Together, you are life itself.\n\nYou restarted the circle, CELL. The world is alive — because of you, together.',
+      'GLUCOSE! Twenty-four pieces — the largest thing you have ever built. This is the sugar inside every plant, and inside you. You are LEGENDS of the Order. Rest now — you earned every bit of it.',
   },
 ]
 

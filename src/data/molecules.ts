@@ -1,9 +1,10 @@
 import type { Molecule } from '../types'
 
 // Everything the cell can stabilize. The Codex is built from this.
-// Voice/flavor stays short and warm — this is for kids. Hour-1 molecules are in
-// Hebrew; Hour-2 (oxygen/CO₂) codex prose stays English until the v2 rewrite.
-// Atoms are "יחידות חומר" (feminine) in-world.
+// Voice/flavor stays short and warm — this is for kids. ALL builds are Hour-1
+// (act 1) now; GLUCOSE is the giant bonus build for teams that finish early.
+// Atoms are "יחידות חומר" (feminine) in-world. New (oxygen/CO₂/glucose) prose is
+// English until translated to Hebrew.
 export const MOLECULES: Record<string, Molecule> = {
   hydrogen_gas: {
     id: 'hydrogen_gas',
@@ -54,19 +55,28 @@ export const MOLECULES: Record<string, Molecule> = {
     id: 'oxygen_gas',
     displayName: 'גז חמצן',
     formula: { O: 2 },
-    act: 2,
+    act: 1,
     centerSymbol: 'O',
     codexEntry:
-      'Two red sparks bound tight. Your cells burn food with this to make the energy to move — and plants make it fresh for you.',
+      'Two red, bound tight. This is the oxygen in every breath — the air that keeps every animal alive.',
   },
   carbon_dioxide: {
     id: 'carbon_dioxide',
     displayName: 'פחמן דו-חמצני',
     formula: { C: 1, O: 2 },
-    act: 2,
+    act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'One grey, two red, in a straight line. The leftover when your cells make energy — and exactly what plants are hungry to drink in.',
+      'One grey between two red, in a straight line. The gas you breathe out with every breath — and the gas plants are hungry to drink in.',
+  },
+  glucose: {
+    id: 'glucose',
+    displayName: 'גלוקוז',
+    formula: { C: 6, H: 12, O: 6 },
+    act: 1,
+    centerSymbol: 'C',
+    codexEntry:
+      'Six grey, twelve white, six red — twenty-four pieces in one ring. Glucose is sugar: the fuel that runs every living thing, from a blade of grass to you.',
   },
 }
 

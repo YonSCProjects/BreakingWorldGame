@@ -19,15 +19,17 @@ mkdirSync(OUT, { recursive: true })
 // colours are set for a dark background and wash out on white paper (Hydrogen
 // #eafcff is almost white!), so we use readable siblings + a dark outline.
 //
-// Sized for the 9-mission arc. One team needs H13/O8/C2/N1/Na1/Cl1; because each
-// team has its own room on the server, ALL teams scan the SAME physical cards,
-// so this is ONE shared set with margin. A few Noble "trap" cards (He/Ne/Ar) are
-// sprinkled in as fun dead-ends.
+// Sized for the 8 builds INCLUDING the GLUCOSE bonus (C₆H₁₂O₆, 24 atoms). One
+// team's full run consumes H23/O11/C8/N3/Na1/Cl1 distinct cards (a card can't be
+// re-scanned within a team). All 3 teams scan the SAME shared cards (each has its
+// own server room), so this ONE set with margin covers everyone — AS LONG AS the
+// cards stay hidden in place and aren't pocketed. (If kids remove them, you'd
+// need ~3× per element.) A few Noble "trap" cards (He/Ne/Ar) are fun dead-ends.
 const KIT = {
-  H:  { he: 'מימן',  count: 18, color: '#6fc0f5', valence: 1 }, // app #eafcff → readable blue
-  O:  { he: 'חמצן',  count: 12, color: '#ff5e6c', valence: 2 },
-  C:  { he: 'פחמן',  count: 4,  color: '#8b95a6', valence: 4 },
-  N:  { he: 'חנקן',  count: 3,  color: '#5e8bff', valence: 3 },
+  H:  { he: 'מימן',  count: 28, color: '#6fc0f5', valence: 1 }, // app #eafcff → readable blue
+  O:  { he: 'חמצן',  count: 14, color: '#ff5e6c', valence: 2 },
+  C:  { he: 'פחמן',  count: 10, color: '#8b95a6', valence: 4 },
+  N:  { he: 'חנקן',  count: 4,  color: '#5e8bff', valence: 3 },
   Na: { he: 'נתרן',  count: 3,  color: '#c08bff', valence: 1 },
   Cl: { he: 'כלור',  count: 3,  color: '#3fcf85', valence: 1 }, // app #7dffae → deeper green
   He: { he: 'הליום', count: 2,  color: '#e0a92e', valence: 0 }, // golds darkened for white

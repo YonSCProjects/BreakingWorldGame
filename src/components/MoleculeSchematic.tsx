@@ -45,6 +45,31 @@ function buildLayout(moleculeId: string, size: number): { slots: Slot[]; bonds: 
     return { slots, bonds }
   }
 
+  if (total > 8) {
+    // Big molecule (e.g. glucose): a dense constellation across two rings, no
+    // sticks — a dozen+ bond lines would just be a scribble at this size.
+    slots.push({ symbol: atoms[0], x: cx, y: cy, center: true })
+    const rest = atoms.slice(1)
+    const inner = Math.min(rest.length, 8)
+    const rings = [
+      { r: ring * 0.6, from: 0, to: inner, tip: 0 },
+      { r: ring * 1.05, from: inner, to: rest.length, tip: Math.PI / 8 },
+    ]
+    for (const rg of rings) {
+      const count = rg.to - rg.from
+      for (let k = 0; k < count; k++) {
+        const angle = -Math.PI / 2 + (k * 2 * Math.PI) / count + rg.tip
+        slots.push({
+          symbol: rest[rg.from + k],
+          x: cx + Math.cos(angle) * rg.r,
+          y: cy + Math.sin(angle) * rg.r,
+          center: false,
+        })
+      }
+    }
+    return { slots, bonds }
+  }
+
   // Core + peripherals on a ring.
   slots.push({ symbol: atoms[0], x: cx, y: cy, center: true })
   const peripherals = atoms.slice(1)

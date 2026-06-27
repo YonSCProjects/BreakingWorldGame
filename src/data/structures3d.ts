@@ -1,5 +1,9 @@
 // 3D ball-and-stick geometry for the control-room view. Coordinates are
-// roughly true to each molecule's real shape (bent, linear, tetrahedral).
+// roughly true to each molecule's real shape (bent, linear, tetrahedral). A
+// procedural fallback (structureFor) covers molecules with no entry, e.g. the
+// big glucose bonus build.
+import { MOLECULES } from './molecules'
+
 export type Atom3D = { symbol: string; pos: [number, number, number] }
 export type Bond3D = { a: number; b: number; order: 1 | 2 }
 export type Structure3D = { atoms: Atom3D[]; bonds: Bond3D[] }
@@ -83,4 +87,26 @@ export const STRUCTURES: Record<string, Structure3D> = {
       { a: 0, b: 2, order: 2 },
     ],
   },
+}
+
+// Geometry for a molecule: a hand-authored structure if we have one, otherwise
+// a procedural ball-cluster (atoms on a golden-spiral sphere, no sticks) so
+// large molecules like glucose still render instead of showing an empty panel.
+export function structureFor(id: string): Structure3D | null {
+  const explicit = STRUCTURES[id]
+  if (explicit) return explicit
+  const m = MOLECULES[id]
+  if (!m) return null
+  const flat: string[] = []
+  for (const [sym, n] of Object.entries(m.formula)) for (let i = 0; i < n; i++) flat.push(sym)
+  const N = flat.length
+  const R = 1.0 + N * 0.035
+  const golden = Math.PI * (3 - Math.sqrt(5))
+  const atoms: Atom3D[] = flat.map((symbol, i) => {
+    const y = N <= 1 ? 0 : 1 - (i / (N - 1)) * 2
+    const rad = Math.sqrt(Math.max(0, 1 - y * y))
+    const theta = golden * i
+    return { symbol, pos: [Math.cos(theta) * rad * R, y * R, Math.sin(theta) * rad * R] }
+  })
+  return { atoms, bonds: [] }
 }
