@@ -9,17 +9,29 @@ import Typewriter from '../components/Typewriter'
 import { hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
 
-// Plain colour words so kids hunt by colour, not chemistry.
-const COLOR_WORD: Record<string, string> = {
-  H: 'white',
-  O: 'red',
-  C: 'grey',
-  N: 'blue',
-  Na: 'violet',
-  Cl: 'green',
-  He: 'gold',
-  Ne: 'gold',
-  Ar: 'gold',
+// Plain colour words (feminine, to agree with "יחידת חומר") so kids hunt by
+// colour, not chemistry. Singular for 1, plural for 2+.
+const COLOR_SING: Record<string, string> = {
+  H: 'לבנה',
+  O: 'אדומה',
+  C: 'אפורה',
+  N: 'כחולה',
+  Na: 'סגולה',
+  Cl: 'ירוקה',
+  He: 'זהובה',
+  Ne: 'זהובה',
+  Ar: 'זהובה',
+}
+const COLOR_PLUR: Record<string, string> = {
+  H: 'לבנות',
+  O: 'אדומות',
+  C: 'אפורות',
+  N: 'כחולות',
+  Na: 'סגולות',
+  Cl: 'ירוקות',
+  He: 'זהובות',
+  Ne: 'זהובות',
+  Ar: 'זהובות',
 }
 
 export default function BriefingScreen() {
@@ -38,11 +50,10 @@ export default function BriefingScreen() {
           animate={{ opacity: 1, scale: 1 }}
           className="mono text-sm leading-relaxed text-[#bfefff]/90"
         >
-          You did it, {cellName}. The world is breathing again — because of you. Rest now,
-          heroes. The Magister is proud.
+          הצלחתם, {cellName}. העולם שוב נושם — בזכותכם. עכשיו נוחו, גיבורים. ראש המסדר גאה בכם.
         </motion.p>
         <p className="mono soft-pulse text-[11px] tracking-[0.3em] text-signal/60">
-          ◈ CELL COMPLETE
+          ◈ חוליה הושלמה
         </p>
       </div>
     )
@@ -57,7 +68,7 @@ export default function BriefingScreen() {
           ◈ {cellName}
         </span>
         <span className="mono text-[10px] tracking-[0.25em] text-signal/45">
-          ACT {mission.act} · TRANSMISSION {String(mission.order).padStart(2, '0')}
+          מערכה {mission.act} · שידור {String(mission.order).padStart(2, '0')}
         </span>
       </header>
 
@@ -76,7 +87,7 @@ export default function BriefingScreen() {
           className="flex flex-col items-center gap-3"
         >
           <span className="mono text-[10px] tracking-[0.35em] text-signal/50">
-            WHAT TO MAKE
+            מה בונים
           </span>
           <div className="hud-frame rounded-sm bg-void-900/40 p-4">
             <MoleculeSchematic moleculeId={molecule.id} size={210} />
@@ -93,7 +104,7 @@ export default function BriefingScreen() {
                   className="inline-block h-3 w-3 rounded-full"
                   style={{ background: ELEMENTS[sym]?.color, boxShadow: `0 0 8px ${ELEMENTS[sym]?.color}` }}
                 />
-                {n} {COLOR_WORD[sym] ?? ELEMENTS[sym]?.name}
+                {n} {(n > 1 ? COLOR_PLUR[sym] : COLOR_SING[sym]) ?? ELEMENTS[sym]?.name}
               </span>
             ))}
           </div>
@@ -106,7 +117,7 @@ export default function BriefingScreen() {
             transition={{ delay: 0.3 }}
             className="border-l-2 border-lattice/50 pl-4"
           >
-            <p className="mono text-[10px] tracking-[0.3em] text-lattice/70">WHERE TO LOOK</p>
+            <p className="mono text-[10px] tracking-[0.3em] text-lattice/70">איפה מחפשים</p>
             <p className="mt-1 text-sm leading-relaxed text-[#d7c8ff]/90">{mission.clueText}</p>
           </motion.div>
         )}
@@ -122,7 +133,7 @@ export default function BriefingScreen() {
             beginHunt()
           }}
         >
-          Begin the Hunt
+          צאו לציד!
         </motion.button>
       )}
     </div>

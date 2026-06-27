@@ -280,15 +280,15 @@ function Ceremony({ roster, voices, onClose }: { roster: Knight[]; voices: Recor
     >
       <div className="void-bg" />
       <button onClick={onClose} className="mono absolute right-5 top-5 z-10 text-[10px] tracking-[0.25em] text-signal/30 active:text-signal/70">
-        ▸ close
+        ▸ סגירה
       </button>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6">
         {i === -1 && (
           <>
-            <p className="mono text-sm tracking-[0.5em] text-signal/70">THE INITIATION</p>
+            <p className="mono text-sm tracking-[0.5em] text-signal/70">טקס ההסמכה</p>
             <p className="mono max-w-lg text-[13px] leading-relaxed text-[#bfefff]/70">
-              When you are ready, call the chosen — one by one — and let their Order claim them.
+              כשאתם מוכנים, קראו לנבחרים — אחד אחד — ותנו למסדר שלהם לאמץ אותם.
             </p>
           </>
         )}
@@ -310,17 +310,17 @@ function Ceremony({ roster, voices, onClose }: { roster: Knight[]; voices: Recor
                 {current.name}
               </span>
               <span className="mono text-base uppercase tracking-[0.25em]" style={{ color: team.color }}>
-                {current.role === 'control' ? 'Seer' : 'Knight'} of the Order of the {team.name}
+                {current.role === 'control' ? 'הרואה' : 'אביר'} ממסדר {team.heb}
               </span>
-              <span className="mono text-[11px] tracking-[0.2em] text-[#bfefff]/40">guardian of {team.guards}</span>
+              <span className="mono text-[11px] tracking-[0.2em] text-[#bfefff]/40">שומר {team.guards}</span>
             </motion.div>
           )}
         </AnimatePresence>
 
         {done && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-3">
-            <p className="mono text-2xl uppercase tracking-[0.2em] text-signal text-glow">The Order is whole</p>
-            <p className="mono text-sm text-[#bfefff]/70">{roster.length} knights have risen. Rise — and bring the world back to life.</p>
+            <p className="mono text-2xl uppercase tracking-[0.2em] text-signal text-glow">המסדר שלם</p>
+            <p className="mono text-sm text-[#bfefff]/70">{roster.length} אבירים קמו. קומו — והחזירו את העולם לחיים.</p>
           </motion.div>
         )}
       </div>
@@ -328,11 +328,11 @@ function Ceremony({ roster, voices, onClose }: { roster: Knight[]; voices: Recor
       <div className="relative z-10 flex flex-col items-center gap-2 pb-10">
         {!done ? (
           <button onClick={callNext} className="btn-signal soft-pulse px-8 text-base">
-            {i === -1 ? '⟡ Begin the Initiation' : '⟡ Call the next Knight'}
+            {i === -1 ? '⟡ התחילו את ההסמכה' : '⟡ קראו לאביר הבא'}
           </button>
         ) : (
           <button onClick={onClose} className="btn-ghost text-sm">
-            Close
+            סגירה
           </button>
         )}
         {i >= 0 && !done && (

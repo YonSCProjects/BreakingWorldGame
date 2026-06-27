@@ -25,7 +25,7 @@ export default function RevealScreen() {
         transition={{ duration: 0.7 }}
         className="flex flex-col items-center gap-2"
       >
-        <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ STABILIZED</span>
+        <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ מיוצב!</span>
         <MoleculeSchematic
           moleculeId={molecule.id}
           filled={molecule.formula}
@@ -64,7 +64,7 @@ export default function RevealScreen() {
               continueFromReveal()
             }}
           >
-            Continue the Descent
+            המשיכו במסע
           </button>
         </motion.div>
       )}

@@ -107,9 +107,9 @@ export default function BondScreen() {
       onPointerLeave={onPointerUp}
     >
       <header className="text-center">
-        <p className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ THE BONDING RITUAL</p>
+        <p className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ טקס הקשירה</p>
         <h2 className="mono mt-1 text-lg uppercase tracking-[0.25em] text-signal text-glow">
-          All hands on the lattice
+          כל הידיים על המטריקס
         </h2>
       </header>
 
@@ -176,20 +176,20 @@ export default function BondScreen() {
             animate={{ opacity: 1, scale: 1 }}
             className="mono text-base tracking-[0.3em] text-signal text-glow"
           >
-            ⟡ BOUND ⟡
+            ⟡ נקשר! ⟡
           </motion.p>
         ) : (
           <>
             <p className="mono text-xs leading-relaxed text-[#bfefff]/80">
               {charge < 0.02
-                ? 'Press and hold — every hand you can muster — to pull the atoms together.'
+                ? 'לחצו והחזיקו — כל יד שאתם יכולים לגייס — כדי למשוך את יחידות החומר זו אל זו.'
                 : charge < 0.99
-                  ? 'HOLD. The bond is taking. Do not let go.'
-                  : 'NOW —'}
+                  ? 'החזיקו. הקשר נתפס. אל תרפו.'
+                  : 'עכשיו —'}
             </p>
             {hands > 1 && (
               <p className="mono text-[10px] tracking-[0.25em] text-lattice/80">
-                {hands} HANDS · LATTICE RESONATING
+                {hands} ידיים · המטריקס מהדהד
               </p>
             )}
           </>
@@ -202,7 +202,7 @@ export default function BondScreen() {
           className="mono absolute bottom-3 text-[10px] tracking-[0.25em] text-signal/30 active:text-signal"
           onClick={() => goto('hunt')}
         >
-          ‹ return to the field
+          ‹ חזרה לשדה
         </button>
       )}
     </div>

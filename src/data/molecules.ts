@@ -1,56 +1,58 @@
 import type { Molecule } from '../types'
 
 // Everything the cell can stabilize. The Codex is built from this.
-// Voice/flavor stays short and warm — this is for kids.
+// Voice/flavor stays short and warm — this is for kids. Hour-1 molecules are in
+// Hebrew; Hour-2 (oxygen/CO₂) codex prose stays English until the v2 rewrite.
+// Atoms are "יחידות חומר" (feminine) in-world.
 export const MOLECULES: Record<string, Molecule> = {
   hydrogen_gas: {
     id: 'hydrogen_gas',
-    displayName: 'Hydrogen Gas',
+    displayName: 'גז מימן',
     formula: { H: 2 },
     act: 1,
     centerSymbol: 'H',
     codexEntry:
-      'Two tiny white sparks holding hands. Hydrogen is the very first thing the universe ever made — and the first thing you made too.',
+      'שתי יחידות חומר לבנות קטנטנות שמחזיקות ידיים. המימן הוא הדבר הראשון שהיקום אי-פעם יצר — וגם הדבר הראשון שאתם יצרתם.',
   },
   salt: {
     id: 'salt',
-    displayName: 'Salt',
+    displayName: 'מלח',
     formula: { Na: 1, Cl: 1 },
     act: 1,
     centerSymbol: 'Na',
     codexEntry:
-      'A wild violet spark and a sharp green one, snapped together. On their own they are trouble — together they are the salt on your fries.',
+      'יחידת חומר סגולה פראית ויחידת חומר ירוקה חדה, שנצמדו יחד. כל אחת לבד היא צרה — ביחד הן המלח שעל הצ׳יפס.',
   },
   water: {
     id: 'water',
-    displayName: 'Water',
+    displayName: 'מים',
     formula: { H: 2, O: 1 },
     act: 1,
     centerSymbol: 'O',
     codexEntry:
-      'Two white, one red. Water is the most important thing alive — every plant, every animal, every one of you is mostly this.',
+      'שתיים לבנות, אחת אדומה. המים הם הדבר הכי חשוב לחיים — כל צמח, כל חיה, וכל אחד מכם עשוי בעיקר מהם.',
   },
   ammonia: {
     id: 'ammonia',
-    displayName: 'Ammonia',
+    displayName: 'אמוניה',
     formula: { N: 1, H: 3 },
     act: 1,
     centerSymbol: 'N',
     codexEntry:
-      'One calm blue spark holding three white ones. You have smelled it before — the sharp bite in cleaning spray.',
+      'יחידת חומר כחולה רגועה אחת שמחזיקה שלוש לבנות. כבר הרחתם את זה פעם — העקיצה החריפה בתרסיס ניקוי.',
   },
   methane: {
     id: 'methane',
-    displayName: 'Methane',
+    displayName: 'מתאן',
     formula: { C: 1, H: 4 },
     act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'One grey builder gripping four white sparks. Methane is the gas that makes fire — the first whisper of everything that can burn and glow.',
+      'יחידת חומר אפורה אחת שאוחזת בארבע לבנות. המתאן הוא הגז שמדליק אש.',
   },
   oxygen_gas: {
     id: 'oxygen_gas',
-    displayName: 'Oxygen Gas',
+    displayName: 'גז חמצן',
     formula: { O: 2 },
     act: 2,
     centerSymbol: 'O',
@@ -59,7 +61,7 @@ export const MOLECULES: Record<string, Molecule> = {
   },
   carbon_dioxide: {
     id: 'carbon_dioxide',
-    displayName: 'Carbon Dioxide',
+    displayName: 'פחמן דו-חמצני',
     formula: { C: 1, O: 2 },
     act: 2,
     centerSymbol: 'C',

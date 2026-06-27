@@ -45,7 +45,7 @@ export default function CodexCard({ moleculeId, unlocked, compact, onClick }: Pr
       ) : (
         <>
           <span className="mono text-xs tracking-[0.3em] text-signal/40">— — —</span>
-          <span className="mono text-[9px] tracking-[0.25em] text-signal/30">UNSTABILIZED</span>
+          <span className="mono text-[9px] tracking-[0.25em] text-signal/30">לא מיוצב</span>
         </>
       )}
     </button>

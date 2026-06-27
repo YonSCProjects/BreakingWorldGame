@@ -28,20 +28,20 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
         <header className="flex items-center justify-between border-b border-signal/20 pb-3">
           <div>
             <h2 className="mono text-sm uppercase tracking-[0.3em] text-signal text-glow">
-              ◈ The Codex
+              ◈ הכתבים העתיקים
             </h2>
             <p className="mono mt-1 text-[10px] tracking-[0.2em] text-signal/50">
-              {cellName} · {stabilized}/{total} STABILIZED
+              {cellName} · {stabilized}/{total} מיוצבים
             </p>
           </div>
           <button className="btn-ghost text-xs" onClick={onClose}>
-            Close
+            סגירה
           </button>
         </header>
 
         {/* discovered atoms */}
         <section>
-          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">ATOMS DISCOVERED</p>
+          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">יחידות חומר שהתגלו</p>
           <div className="flex flex-wrap gap-1">
             {ALL_ELEMENT_SYMBOLS.map((sym) => {
               const found = elementsFound.includes(sym)
@@ -61,7 +61,7 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
 
         {/* molecules */}
         <section>
-          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">LATTICES STABILIZED</p>
+          <p className="mono mb-3 text-[10px] tracking-[0.3em] text-signal/50">מטריקסים שיוצבו</p>
           <div className="grid grid-cols-2 gap-3">
             {ALL_MOLECULE_IDS.map((id) => {
               const unlocked = done.includes(id)
@@ -78,7 +78,7 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
         </section>
 
         <p className="mono pb-6 text-center text-[9px] leading-relaxed tracking-[0.2em] text-signal/30">
-          THE UNBINDING RECEDES WHERE A SHAPE STILL HOLDS.
+          הפירוק נסוג במקום שבו צורה עדיין מחזיקה.
         </p>
       </div>
 
@@ -86,7 +86,7 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
       <AnimatePresence>
         {openMol && (
           <DetailSheet onClose={() => setOpenMol(null)}>
-            <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ STABILIZED LATTICE</span>
+            <span className="mono text-[10px] tracking-[0.35em] text-signal/60">◈ מטריקס מיוצב</span>
             <h3 className="mono text-xl uppercase tracking-[0.2em] text-signal text-glow">
               {MOLECULES[openMol].displayName}
             </h3>
@@ -109,7 +109,7 @@ export default function CodexScreen({ onClose }: { onClose: () => void }) {
               {ELEMENTS[openEl].name}
             </h3>
             <span className="mono text-[10px] tracking-[0.25em] text-signal/60">
-              {ELEMENTS[openEl].trap ? 'SEALED · VALENCE 0' : `VALENCE ${ELEMENTS[openEl].valence}`}
+              {ELEMENTS[openEl].trap ? 'סגור · ערכיות 0' : `ערכיות ${ELEMENTS[openEl].valence}`}
             </span>
             <p className="mt-2 text-center text-sm leading-relaxed text-[#bfefff]/85">
               {ELEMENTS[openEl].codexEntry}
@@ -140,7 +140,7 @@ function DetailSheet({ children, onClose }: { children: React.ReactNode; onClose
       >
         {children}
         <button className="btn-ghost mt-4 text-xs" onClick={onClose}>
-          Seal Entry
+          חתמו את הערך
         </button>
       </motion.div>
     </motion.div>

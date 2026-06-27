@@ -4,13 +4,13 @@ import { useSession } from '../store/session'
 import Typewriter from '../components/Typewriter'
 import { hapticLight, hapticMedium } from '../utils/haptics'
 
-const COLD_OPEN = `The signal found you. It only ever finds the right ones.
+const COLD_OPEN = `האות מצא אתכם. הוא מוצא תמיד רק את הנכונים.
 
-I am the Magister. I called you here because you are not ordinary — each of you carries a gift the world has been missing.
+אני ראש המסדר. קראתי לכם לכאן כי אתם לא רגילים — כל אחד מכם נושא מתנה שחסרה לעולם.
 
-You can’t see your power yet. This mission will show you what you’re made of.
+אתם עדיין לא רואים את הכוח שלכם. המשימה הזאת תראה לכם ממה אתם עשויים.
 
-Together you are a CELL. Tell me its name — and we begin.`
+ביחד אתם חוליה. אמרו לי את שמה — ונתחיל.`
 
 type Stage = 'static' | 'lock' | 'transmit' | 'name'
 
@@ -46,7 +46,7 @@ export default function BootScreen() {
           transition={{ duration: 1.3, times: [0, 0.2, 0.35, 0.5, 0.7, 1] }}
           className="mono text-center text-xs tracking-[0.3em] text-signal/70"
         >
-          ▓▓▒▒░░ POWERING ON ░░▒▒▓▓
+          ▓▓▒▒░░ מופעל ░░▒▒▓▓
         </motion.div>
       )}
 
@@ -62,7 +62,7 @@ export default function BootScreen() {
             <span className="absolute inset-3 rounded-full bg-signal/20 blur-md" />
           </div>
           <p className="mono soft-pulse text-xs tracking-[0.3em] text-signal text-glow">
-            SIGNAL LOCK
+            נעילת אות
           </p>
         </motion.div>
       )}
@@ -75,9 +75,9 @@ export default function BootScreen() {
         >
           <header className="flex items-center justify-between border-b border-signal/20 pb-2">
             <span className="mono text-[10px] tracking-[0.35em] text-signal/70">
-              ◈ THE MAGISTER
+              ◈ ראש המסדר
             </span>
-            <span className="mono text-[10px] tracking-[0.2em] text-signal/40">FOR YOUR EYES</span>
+            <span className="mono text-[10px] tracking-[0.2em] text-signal/40">לעיניכם בלבד</span>
           </header>
 
           <Typewriter
@@ -96,7 +96,7 @@ export default function BootScreen() {
             >
               <input
                 className="field-signal w-full px-4 py-4 text-base"
-                placeholder="NAME YOUR CELL"
+                placeholder="תנו שם לחוליה"
                 maxLength={18}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -108,10 +108,10 @@ export default function BootScreen() {
                 disabled={name.trim().length < 2}
                 onClick={engage}
               >
-                Establish Cell
+                הקימו חוליה
               </button>
               <p className="mono text-center text-[10px] tracking-[0.2em] text-signal/30">
-                ONE DEVICE · ONE CELL · ONE CAMPFIRE
+                מכשיר אחד · חוליה אחת · מדורה אחת
               </p>
             </motion.div>
           )}

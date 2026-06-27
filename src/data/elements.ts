@@ -1,100 +1,101 @@
 import type { Element } from '../types'
 
 // The atoms the Lattice can still hold. Color is the glow each one casts.
+// `name` + `codexEntry` are player-facing → Hebrew. `personality` is internal.
 export const ELEMENTS: Record<string, Element> = {
   H: {
     symbol: 'H',
-    name: 'Hydrogen',
+    name: 'מימן',
     valence: 1,
     color: '#eafcff',
     sizeScale: 0.6,
     personality: 'frantic, eager to cling',
     codexEntry:
-      'The first and smallest. Hydrogen remembers the beginning of everything and is desperate to hold on to anything. One hand only — but it never lets go.',
+      'הראשון והקטן ביותר. המימן זוכר את ראשית הכול, ונואש להיאחז בכל דבר. יד אחת בלבד — אבל הוא אף פעם לא מרפה.',
   },
   O: {
     symbol: 'O',
-    name: 'Oxygen',
+    name: 'חמצן',
     valence: 2,
     color: '#ff5e6c',
     sizeScale: 0.95,
     personality: 'greedy, two-handed, burning',
     codexEntry:
-      'Hungry and red. Oxygen takes with both hands and gives warmth in return — or fire, if provoked. Most of what the world breathes passes through its grip.',
+      'רעב ואדום. החמצן לוקח בשתי ידיים ומחזיר חום — או אש, אם מרגיזים אותו. רוב מה שהעולם נושם עובר דרך האחיזה שלו.',
   },
   C: {
     symbol: 'C',
-    name: 'Carbon',
+    name: 'פחמן',
     valence: 4,
     color: '#9aa4b2',
     sizeScale: 1.0,
     personality: 'patient architect, four steady hands',
     codexEntry:
-      'The builder. Carbon holds four bonds at once and never tires of construction. Every living lattice the Unbinding is unraveling was, at its heart, Carbon’s work.',
+      'הבנאי. הפחמן מחזיק ארבעה קשרים בבת אחת, ואף פעם לא נמאס לו לבנות.',
   },
   N: {
     symbol: 'N',
-    name: 'Nitrogen',
+    name: 'חנקן',
     valence: 3,
     color: '#5e8bff',
     sizeScale: 0.92,
     personality: 'cold, triple-locked, reluctant',
     codexEntry:
-      'Aloof and blue. Nitrogen binds in threes and resists being split. It fills the sky and asks for nothing, which is exactly why it is so hard to recruit.',
+      'מרוחק וכחול. החנקן מתקשר בשלשות ומתנגד שיפרידו אותו. הוא ממלא את השמיים ולא מבקש כלום.',
   },
   Na: {
     symbol: 'Na',
-    name: 'Sodium',
+    name: 'נתרן',
     valence: 1,
     color: '#c08bff',
     sizeScale: 1.1,
     personality: 'reckless, violet, throws itself at water',
     codexEntry:
-      'Soft, violet, and reckless. Sodium gives away its single bond at the slightest touch and flares when it meets water. Handle the memory of it carefully.',
+      'רך, סגול, וחסר זהירות. הנתרן מוותר על הקשר היחיד שלו בנגיעה הקלה ביותר, ומתלקח כשהוא פוגש מים.',
   },
   Cl: {
     symbol: 'Cl',
-    name: 'Chlorine',
+    name: 'כלור',
     valence: 1,
     color: '#7dffae',
     sizeScale: 1.05,
     personality: 'sharp, green, hungry for one more',
     codexEntry:
-      'Pale green and sharp-edged. Chlorine wants exactly one thing and will scour a room to find it. Paired well it preserves; paired wrong it corrodes.',
+      'ירוק חיוור וחד. הכלור רוצה בדיוק דבר אחד, ויסרוק חדר שלם כדי למצוא אותו.',
   },
   // ── The Nobles: sealed. Scanning one is a beautiful dead end. ──────────
   He: {
     symbol: 'He',
-    name: 'Helium',
+    name: 'הליום',
     valence: 0,
     color: '#ffd66e',
     sizeScale: 0.7,
     personality: 'sealed, golden, untouchable',
     trap: true,
     codexEntry:
-      'Golden and complete. Helium needs nothing and bonds with no one. A perfect, useless treasure — the Lattice cannot build with what is already whole.',
+      'זהוב ושלם. ההליום לא צריך כלום ולא מתקשר עם אף אחד. אוצר מושלם וחסר תועלת.',
   },
   Ne: {
     symbol: 'Ne',
-    name: 'Neon',
+    name: 'ניאון',
     valence: 0,
     color: '#ffce54',
     sizeScale: 0.85,
     personality: 'sealed, glowing, aloof',
     trap: true,
     codexEntry:
-      'It glows when the world burns around it, and stays exactly itself. Neon will not lend a hand. Note its location and move on.',
+      'הוא זוהר כשהעולם בוער מסביבו, ונשאר בדיוק הוא עצמו. הניאון לא יושיט יד.',
   },
   Ar: {
     symbol: 'Ar',
-    name: 'Argon',
+    name: 'ארגון',
     valence: 0,
     color: '#f0b840',
     sizeScale: 1.0,
     personality: 'sealed, ancient, indifferent',
     trap: true,
     codexEntry:
-      'The lazy one. Argon has filled the air for eons and never once joined a bond. A sealed vault of gold. There is nothing here to gather.',
+      'העצלן. הארגון ממלא את האוויר כבר עידנים ואף פעם לא הצטרף לאף קשר. אין כאן מה לאסוף.',
   },
 }
 

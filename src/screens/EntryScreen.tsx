@@ -17,28 +17,27 @@ export default function EntryScreen({ onChoose }: { onChoose: (c: Choice) => voi
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center gap-2 text-center"
       >
-        <span className="mono text-[10px] tracking-[0.4em] text-signal/60">◈ THE LATTICE</span>
+        <span className="mono text-[10px] tracking-[0.4em] text-signal/60">◈ המטריקס</span>
         <h1 className="mono text-2xl uppercase tracking-[0.2em] text-signal text-glow">
-          Assign this device
+          שייכו את המכשיר הזה
         </h1>
         <p className="mono mt-1 max-w-xs text-[11px] leading-relaxed text-[#bfefff]/60">
-          Each cell runs from two stations — hands in the field, and eyes in the control
-          room. Tell the Lattice which this is.
+          כל חוליה פועלת משתי עמדות — ידיים בשדה, ועיניים בחדר הבקרה. אמרו למטריקס איזו מהן זו.
         </p>
       </motion.div>
 
       <div className="flex w-full max-w-sm flex-col gap-3">
         <StationButton
           delay={0.05}
-          title="Field Device"
-          sub="Phone in the field — hunt atoms, scan, bond"
+          title="מכשיר שדה"
+          sub="טלפון בשדה — ציד יחידות חומר, סריקה וקשירה"
           glyph="⌖"
           onClick={() => pick('field')}
         />
         <StationButton
           delay={0.12}
-          title="Control Room"
-          sub="The watch station — track the team, send hints, see the lattice in 3D"
+          title="חדר הבקרה"
+          sub="עמדת התצפית — עקבו אחרי החוליה, שלחו רמזים, וראו את המטריקס בתלת-ממד."
           glyph="◎"
           onClick={() => pick('control')}
         />
@@ -48,7 +47,7 @@ export default function EntryScreen({ onChoose }: { onChoose: (c: Choice) => voi
         className="mono mt-2 text-[10px] tracking-[0.25em] text-signal/30 active:text-signal/70"
         onClick={() => pick('solo')}
       >
-        ▸ run solo · no team · offline
+        ▸ הפעלה לבד · בלי צוות · לא מקוון
       </button>
     </div>
   )
@@ -73,7 +72,7 @@ function StationButton({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
       onClick={onClick}
-      className="hud-frame group flex items-center gap-4 rounded-sm bg-void-800/50 px-5 py-4 text-left active:bg-signal/5"
+      className="hud-frame group flex items-center gap-4 rounded-sm bg-void-800/50 px-5 py-4 text-right active:bg-signal/5"
     >
       <span className="text-3xl text-signal text-glow">{glyph}</span>
       <span className="flex flex-col">

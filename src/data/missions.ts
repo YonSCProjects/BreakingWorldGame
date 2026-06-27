@@ -1,25 +1,26 @@
 import type { Mission } from '../types'
 
-// The Magister's voice: warm, short, believing in them. Hunts are described by
-// COLOUR (two white, one red), never chemistry. Every line is encouraging and
-// easy to read. Clues are friendly placeholders — tailor them to where YOU hide
-// the cards. (Written in English; Hebrew translation happens later.)
+// The Magister's voice ("ראש המסדר"): warm, short, believing in them. Hunts are
+// described by COLOUR (two white, one red), never chemistry. Atoms are called
+// "יחידות חומר" (feminine) in-world. Clues are friendly placeholders — tailor
+// them to where YOU hide the cards.
 //
-// HOUR 1 (act 1): five quick builds, easy → bigger — "find your power".
-// HOUR 2 (act 2): the breath of the world — breathing ↔ photosynthesis.
+// HOUR 1 (act 1): five quick builds, easy → bigger — "find your power". HEBREW.
+// HOUR 2 (act 2): the circle of life — respiration ↔ photosynthesis. Still
+// ENGLISH (its Hebrew is translated separately, after the v2 rewrite).
 export const MISSIONS: Mission[] = [
-  // ── HOUR 1 ──────────────────────────────────────────────────────────
+  // ── HOUR 1 (Hebrew) ─────────────────────────────────────────────────
   {
     id: 'm1-hydrogen',
     order: 1,
     act: 1,
     targetMoleculeId: 'hydrogen_gas',
     briefingText:
-      'First task, CELL — and an easy one to start. Make HYDROGEN. Find two white sparks and bring them together. You’ve got this.',
+      'המשימה הראשונה — ואחת קלה להתחלה. צרו מימן. מצאו שתי יחידות חומר לבנות וחברו אותן. אתם מסוגלים.',
     clueText:
-      'White sparks are tiny and there are lots of them. Look low, look close — start right near where you’re standing.',
+      'יחידות חומר לבנות הן קטנטנות, ויש מהן המון. חפשו נמוך וקרוב — ממש ליד הרגליים שלכם.',
     revealText:
-      'Done! That’s HYDROGEN — the very first thing that ever existed. You made it look easy. I chose well.',
+      'סיימתם! זהו מימן — הדבר הראשון שאי-פעם היה קיים. גרמתם לזה להיראות קל. בחרתי נכון.',
   },
   {
     id: 'm2-salt',
@@ -27,11 +28,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'salt',
     briefingText:
-      'Next: SALT — yes, the kind on your fries. Find one violet spark and one green one. Two colours, one team.',
+      'הבא בתור: מלח — כן, זה שעל הצ׳יפס. מצאו יחידת חומר סגולה אחת ויחידת חומר ירוקה אחת. שני צבעים, צוות אחד.',
     clueText:
-      'Violet is rare and a little wild. Green likes to hide in corners. Spread out and shout when you spot one.',
+      'הסגולה נדירה וקצת פראית. הירוקה אוהבת להתחבא בפינות. התפזרו, ומי שמוצא — שיצעק!',
     revealText:
-      'SALT! The violet and the green grabbed each other in a flash. Nice teamwork — that’s a gift, you know. Keep going.',
+      'מלח! הסגולה והירוקה תפסו אחת את השנייה בן רגע. עבודת צוות יפה — וזו מתנה, שתדעו. תמשיכו.',
   },
   {
     id: 'm3-water',
@@ -39,11 +40,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'water',
     briefingText:
-      'Now WATER — the most important thing alive. Two white sparks and one red one. You already know how to find white.',
+      'עכשיו מים — הדבר הכי חשוב לחיים. שתי יחידות חומר לבנות ואחת אדומה. את הלבנות אתם כבר יודעים למצוא.',
     clueText:
-      'Red ones glow warm. Two white, one red — gather all three and you’re there.',
+      'האדומות זוהרות בחום. שתיים לבנות, אחת אדומה — אספו את שלושתן, וזהו, הגעתם.',
     revealText:
-      'WATER. Every living thing needs it, and you made it from almost nothing. That took focus. I’m impressed — next!',
+      'מים. כל יצור חי צריך אותם, ואתם יצרתם אותם כמעט מכלום. זה דרש ריכוז. אני מתרשם — קדימה, הלאה!',
   },
   {
     id: 'm4-ammonia',
@@ -51,11 +52,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'ammonia',
     briefingText:
-      'A tricky one: AMMONIA — the sharp smell in cleaning spray. One blue spark and THREE white. You can do hard things.',
+      'אחת קצת קשה: אמוניה — הריח החריף בתרסיס ניקוי. יחידת חומר כחולה אחת ושלוש לבנות. אתם יודעים לעשות דברים קשים.',
     clueText:
-      'Blue is calm and hides out in the open. Three whites is a lot — split the hunt between you.',
+      'הכחולה רגועה, ומתחבאת דווקא במקום גלוי. שלוש לבנות זה הרבה — חלקו את החיפוש ביניכם.',
     revealText:
-      'AMMONIA — four pieces, locked tight. The hardest yet, and you didn’t quit. THAT is who you are. Almost there.',
+      'אמוניה — ארבעה חלקים, מחוברים חזק. הכי קשה עד עכשיו, ולא ויתרתם. זה מי שאתם, באמת. כמעט שם.',
   },
   {
     id: 'm5-methane',
@@ -63,14 +64,14 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'methane',
     briefingText:
-      'Last one before you rest: METHANE — the gas that makes fire. One grey spark and FOUR white. Big build. Big team.',
+      'אחרונה לפני שאתם נחים: מתאן — הגז שמדליק אש. יחידת חומר אפורה אחת וארבע לבנות. בנייה גדולה. צוות גדול.',
     clueText:
-      'Grey is heavy and slow, so it won’t be far. Four whites is a lot — share the load and hunt together.',
+      'האפורה כבדה ואיטית, אז היא לא תהיה רחוקה. ארבע לבנות זה הרבה — חלקו את העבודה וחפשו ביחד.',
     revealText:
-      'METHANE! Five pieces — your biggest build yet. Hour one is COMPLETE. Rest now, drink some water, shake out your legs. When you come back, the real secret begins. You earned it.',
+      'מתאן! חמישה חלקים — הבנייה הכי גדולה שלכם עד היום. שעה ראשונה — הושלמה! עכשיו נוחו, שתו קצת מים, נערו את הרגליים. כשתחזרו, מתחיל הסוד האמיתי. הרווחתם את זה.',
   },
 
-  // ── HOUR 2 · THE CIRCLE OF LIFE (cellular respiration ↔ photosynthesis) ─
+  // ── HOUR 2 · THE CIRCLE OF LIFE (English — Hebrew pending v2 rewrite) ──
   {
     id: 'm6-oxygen',
     order: 6,

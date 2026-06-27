@@ -9,23 +9,23 @@ export function outcomeMessage(o: ScanOutcome): { text: string; good: boolean } 
     case 'accepted':
       return {
         text: o.ready
-          ? `That’s everything — YOU DID IT! Carry it to the Control Room.`
-          : `YES! You locked in a ${ELEMENTS[o.element]?.name ?? o.element}. Keep going!`,
+          ? `זהו, יש לכם הכול — הצלחתם! קחו את זה לחדר הבקרה.`
+          : `יש! תפסתם ${ELEMENTS[o.element]?.name ?? o.element}. ככה ממשיכים!`,
         good: true,
       }
     case 'duplicate':
-      return { text: 'You already grabbed that one — go find a new spark!', good: false }
+      return { text: 'את זה כבר תפסתם — לכו תמצאו יחידת חומר חדשה!', good: false }
     case 'wrong-element':
-      return { text: 'Not for this build — keep hunting, you’ve got this!', good: false }
+      return { text: 'לא בשביל הבנייה הזאת — תמשיכו לחפש, אתם מסוגלים!', good: false }
     case 'already-full':
       return {
-        text: `You’ve got enough ${ELEMENTS[o.element]?.name ?? o.element} — find the next colour!`,
+        text: `יש לכם מספיק ${ELEMENTS[o.element]?.name ?? o.element} — עכשיו לצבע הבא!`,
         good: false,
       }
     case 'noble':
-      return { text: 'Ooh, that one likes to be alone — leave it and grab another!', good: false }
+      return { text: 'אופס, זה אוהב להיות לבד — עזבו אותו ותפסו אחר!', good: false }
     case 'unknown':
-      return { text: 'Hmm, the signal’s fuzzy on that one. Try a different one!', good: false }
+      return { text: 'הממ, הקליטה על זה קצת מטושטשת. נסו אחד אחר!', good: false }
   }
 }
 

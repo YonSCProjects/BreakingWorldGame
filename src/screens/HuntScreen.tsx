@@ -80,10 +80,10 @@ export default function HuntScreen() {
         {/* mission target prompt, top */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-col items-center gap-1 pt-5">
           <span className="mono text-[10px] tracking-[0.3em] text-signal/60">
-            ◈ SENSOR FIELD · ACT {mission.act}
+            ◈ שדה החיישנים · מערכה {mission.act}
           </span>
           <span className="mono text-xs uppercase tracking-[0.2em] text-signal text-glow">
-            seeking {molecule.displayName} · {formulaLabel(molecule.formula)}
+            מחפשים {molecule.displayName} · {formulaLabel(molecule.formula)}
           </span>
         </div>
 
@@ -115,7 +115,7 @@ export default function HuntScreen() {
       <div className="relative z-10 border-t border-signal/20 bg-void-900/85 px-4 pb-5 pt-4 backdrop-blur-md">
         <div className="mb-3 flex items-center justify-between">
           <span className="mono text-[10px] tracking-[0.3em] text-signal/60">
-            HOLDING FIELD
+            שדה ההחזקה
           </span>
           {/* staff-only: hidden for players so the physical hunt can't be skipped */}
           {STAFF_MODE && (
@@ -155,9 +155,9 @@ export default function HuntScreen() {
                 exit={{ opacity: 0 }}
                 className="soft-pulse mt-4 w-full rounded-sm border border-signal/40 bg-void-800/60 px-4 py-3 text-center"
               >
-                <p className="mono text-sm tracking-[0.15em] text-signal text-glow">THE SET IS WHOLE</p>
+                <p className="mono text-sm tracking-[0.15em] text-signal text-glow">הסט שלם!</p>
                 <p className="mono mt-1 text-[11px] leading-relaxed text-[#bfefff]/70">
-                  Carry your lattice back to the Control Room — only they can stabilize the bond.
+                  קחו את המטריקס שלכם בחזרה לחדר הבקרה — רק שם אפשר לייצב את הקשר.
                 </p>
               </motion.div>
             ) : (
@@ -171,7 +171,7 @@ export default function HuntScreen() {
                   goto('bond')
                 }}
               >
-                The set is whole · Forge the bond
+                הסט שלם · צרו את הקשר
               </motion.button>
             ))}
         </AnimatePresence>

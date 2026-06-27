@@ -38,15 +38,15 @@ export default function JoinScreen({ role, onBack }: { role: Role; onBack: () =>
         className="flex flex-col items-center gap-2 text-center"
       >
         <span className="mono text-[10px] tracking-[0.35em] text-signal/60">
-          ◈ {isField ? 'FIELD DEVICE' : 'CONTROL ROOM'}
+          ◈ {isField ? 'מכשיר שדה' : 'חדר הבקרה'}
         </span>
         <h1 className="mono text-xl uppercase tracking-[0.2em] text-signal text-glow">
-          {isField ? 'Which cell are you?' : 'Tune to a cell'}
+          {isField ? 'לאיזו חוליה אתם שייכים?' : 'כווננו לחוליה'}
         </h1>
         <p className="mono mt-1 max-w-xs text-[11px] leading-relaxed text-[#bfefff]/60">
           {isField
-            ? 'Tap the cell your team was given. Your control room taps the same one to share your channel.'
-            : 'Tap the same cell your field team was given, to lock onto their channel.'}
+            ? 'הקישו על החוליה שניתנה לצוות שלכם. חדר הבקרה שלכם מקיש על אותה אחת כדי לחלוק את הערוץ.'
+            : 'הקישו על אותה חוליה שניתנה לצוות השדה שלכם, כדי להתחבר לערוץ שלהם.'}
         </p>
       </motion.div>
 
@@ -63,7 +63,7 @@ export default function JoinScreen({ role, onBack }: { role: Role; onBack: () =>
           >
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: t.color, boxShadow: `0 0 10px ${t.color}` }} />
             <span className="mono text-sm uppercase tracking-[0.2em]" style={{ color: t.color }}>
-              {t.name}
+              {t.heb}
             </span>
           </motion.button>
         ))}
@@ -92,7 +92,7 @@ export default function JoinScreen({ role, onBack }: { role: Role; onBack: () =>
         className="mono text-[10px] tracking-[0.25em] text-signal/35 active:text-signal/70"
         onClick={onBack}
       >
-        ‹ back
+        ‹ חזרה
       </button>
     </div>
   )

@@ -161,8 +161,8 @@ export default function App() {
           className="mono hud-frame fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-sm bg-void-900/70 px-3 py-2 text-[10px] tracking-[0.25em] text-signal/70 backdrop-blur active:text-signal"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          ◈ CODEX
-          <span className="text-signal/40">
+          ◈ כתבים
+          <span className="text-signal/40" dir="ltr">
             {codexCount}/{ALL_MOLECULE_IDS.length}
           </span>
         </button>
@@ -177,7 +177,7 @@ export default function App() {
           className="mono fixed bottom-4 left-4 z-50 text-[9px] tracking-[0.2em] text-signal/25 active:text-signal/60"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          ▸ leave team
+          ▸ יציאה מהחוליה
         </button>
       )}
       {onBootScreen && (
@@ -185,18 +185,18 @@ export default function App() {
           onClick={() => setChose(null)}
           className="mono fixed left-4 top-4 z-50 text-[10px] tracking-[0.2em] text-signal/30 active:text-signal/70"
         >
-          ‹ stations
+          ‹ עמדות
         </button>
       )}
       {route === 'solo' && hasBooted && phase === 'briefing' && (
         <button
           onClick={() => {
-            if (confirm('Sever the channel and wipe this cell? This cannot be undone.')) resetSession()
+            if (confirm('לנתק את הערוץ ולמחוק את החוליה הזו? אי אפשר לבטל.')) resetSession()
           }}
           className="mono fixed bottom-4 left-4 z-50 text-[9px] tracking-[0.2em] text-signal/25 active:text-signal/60"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          ▸ sever channel
+          ▸ ניתוק הערוץ
         </button>
       )}
     </div>
@@ -233,7 +233,7 @@ function FieldOverlays() {
           >
             <div className="hud-frame rounded-sm bg-void-900/85 px-4 py-3 text-center backdrop-blur-md"
               style={{ borderColor: 'rgba(139,123,255,0.5)' }}>
-              <p className="mono text-[9px] tracking-[0.3em] text-lattice/70">◈ CONTROL ROOM</p>
+              <p className="mono text-[9px] tracking-[0.3em] text-lattice/70">◈ חדר הבקרה</p>
               <p className="mono mt-1 text-[12px] leading-relaxed text-[#d7c8ff]/90">{hint}</p>
             </div>
           </motion.div>
@@ -242,7 +242,7 @@ function FieldOverlays() {
 
       {status !== 'open' && (
         <div className="mono fixed left-1/2 top-3 z-50 -translate-x-1/2 rounded-sm border border-warn/40 bg-void-900/80 px-3 py-1 text-[9px] tracking-[0.2em] text-warn/90 backdrop-blur">
-          {status === 'reconnecting' ? '◴ RE-LINKING…' : '◴ LINKING…'}
+          {status === 'reconnecting' ? '◴ מתחבר מחדש…' : '◴ מתחבר…'}
         </div>
       )}
     </>

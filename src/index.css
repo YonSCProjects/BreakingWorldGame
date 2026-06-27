@@ -109,7 +109,7 @@ body {
 /* The blinking transmission cursor */
 .caret::after {
   content: '▋';
-  margin-left: 2px;
+  margin-inline-start: 2px;
   animation: caret 1s steps(1) infinite;
   color: var(--signal);
 }

@@ -90,20 +90,20 @@ export default function Scanner({ active, onResult }: Props) {
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8 text-center">
           <p className="mono text-sm text-warn text-glow">
             {status === 'denied'
-              ? 'THE SENSOR IS BLIND.'
-              : 'THE SENSOR FALTERS.'}
+              ? 'החיישן עיוור.'
+              : 'החיישן כושל.'}
           </p>
           <p className="mono text-xs leading-relaxed text-[#ffc2cd]/80">
             {status === 'denied'
-              ? 'Grant the Lattice sight — allow camera access in your browser, then reopen the field. (Sight requires a secure link: HTTPS or localhost.)'
-              : 'No optical channel could be opened on this device.'}
+              ? 'תנו למטריקס לראות — אשרו גישה למצלמה בדפדפן, ואז פתחו מחדש את השדה. (ראייה דורשת חיבור מאובטח: HTTPS או localhost.)'
+              : 'לא ניתן לפתוח ערוץ אופטי במכשיר הזה.'}
           </p>
         </div>
       )}
 
       {status === 'starting' && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="mono soft-pulse text-xs text-signal/80">OPENING OPTICAL CHANNEL…</p>
+          <p className="mono soft-pulse text-xs text-signal/80">פותח ערוץ אופטי…</p>
         </div>
       )}
     </div>
