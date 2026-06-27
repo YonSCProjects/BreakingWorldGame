@@ -6,7 +6,7 @@
 export type Team = { name: string; color: string }
 
 export const TEAMS: Team[] = [
-  { name: 'NOVA', color: '#5ef2ff' },
+  { name: 'AURORA', color: '#5ef2ff' },
   { name: 'EMBER', color: '#ff7a5e' },
   { name: 'COMET', color: '#5e8bff' },
   { name: 'ORION', color: '#c08bff' },
