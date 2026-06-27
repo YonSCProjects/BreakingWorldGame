@@ -14,16 +14,21 @@ const OUT = join(__dirname, '..', 'qr-kit')
 mkdirSync(OUT, { recursive: true })
 
 // element symbol → { name, count, color }. Matches src/data/elements.ts.
+//
+// Sized for the 9-mission arc. One team needs H13/O8/C2/N1/Na1/Cl1; because each
+// team has its own room on the server, ALL teams can scan the SAME physical
+// cards, so this is ONE shared set with margin (no need to print per-team).
+// A few Noble "trap" cards (He/Ne/Ar) are sprinkled in as fun dead-ends.
 const KIT = {
-  H: { name: 'Hydrogen', count: 14, color: '#9fdfff' },
-  O: { name: 'Oxygen', count: 8, color: '#ff5e6c' },
+  H: { name: 'Hydrogen', count: 18, color: '#9fdfff' },
+  O: { name: 'Oxygen', count: 12, color: '#ff5e6c' },
   C: { name: 'Carbon', count: 4, color: '#9aa4b2' },
   N: { name: 'Nitrogen', count: 3, color: '#5e8bff' },
-  Na: { name: 'Sodium', count: 2, color: '#c08bff' },
-  Cl: { name: 'Chlorine', count: 2, color: '#7dffae' },
-  He: { name: 'Helium', count: 1, color: '#ffd66e' },
-  Ne: { name: 'Neon', count: 1, color: '#ffce54' },
-  Ar: { name: 'Argon', count: 1, color: '#f0b840' },
+  Na: { name: 'Sodium', count: 3, color: '#c08bff' },
+  Cl: { name: 'Chlorine', count: 3, color: '#7dffae' },
+  He: { name: 'Helium', count: 2, color: '#ffd66e' },
+  Ne: { name: 'Neon', count: 2, color: '#ffce54' },
+  Ar: { name: 'Argon', count: 2, color: '#f0b840' },
 }
 
 const ids = []
