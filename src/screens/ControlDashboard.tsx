@@ -191,16 +191,16 @@ export default function ControlDashboard({ onLeave }: { onLeave: () => void }) {
               </div>
             </div>
 
-            {/* seal */}
+            {/* seal — the ONLY way a networked team completes a molecule */}
             <button
-              className="btn-signal w-full text-sm disabled:opacity-40"
+              className={`btn-signal w-full text-sm disabled:opacity-40 ${state.ready ? 'soft-pulse' : ''}`}
               disabled={!state.ready}
               onClick={() => {
                 hapticMedium()
                 staffConfirm()
               }}
             >
-              {state.ready ? '⟡ Confirm Bond' : 'Awaiting the full set…'}
+              {state.ready ? '⟡ Verify the model · Confirm Bond' : 'Awaiting the full set…'}
             </button>
           </section>
         </div>

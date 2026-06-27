@@ -143,22 +143,36 @@ export default function HuntScreen() {
           )}
         </AnimatePresence>
 
-        {/* ready → forge */}
+        {/* ready → seal. Networked teams must return to the control room; the
+            phone can't seal on its own. Solo keeps the on-device bond ritual. */}
         <AnimatePresence>
-          {ready && (
-            <motion.button
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="btn-signal mt-4 w-full soft-pulse text-sm"
-              onClick={() => {
-                hapticMedium()
-                goto('bond')
-              }}
-            >
-              The set is whole · Forge the bond
-            </motion.button>
-          )}
+          {ready &&
+            (mode === 'field' ? (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="soft-pulse mt-4 w-full rounded-sm border border-signal/40 bg-void-800/60 px-4 py-3 text-center"
+              >
+                <p className="mono text-sm tracking-[0.15em] text-signal text-glow">THE SET IS WHOLE</p>
+                <p className="mono mt-1 text-[11px] leading-relaxed text-[#bfefff]/70">
+                  Carry your lattice back to the Control Room — only they can stabilize the bond.
+                </p>
+              </motion.div>
+            ) : (
+              <motion.button
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="btn-signal mt-4 w-full soft-pulse text-sm"
+                onClick={() => {
+                  hapticMedium()
+                  goto('bond')
+                }}
+              >
+                The set is whole · Forge the bond
+              </motion.button>
+            ))}
         </AnimatePresence>
       </div>
     </div>
