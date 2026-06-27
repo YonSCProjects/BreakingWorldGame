@@ -52,15 +52,32 @@ voice (= ראש המסדר). Use the SAME model/settings as my other clips
 filename (overwrite if present). Add **niqqud** to any word that gets
 mispronounced (e.g. מסדר→מִסְדָּר, חברו→וְחַבְּרוּ). One at a time; then list them.
 
-**`m6-oxygen-briefing.mp3`** — <Hebrew briefing 6>
-**`m6-oxygen-clue.mp3`** — <Hebrew clue 6>
-**`m6-oxygen-reveal.mp3`** — <Hebrew reveal 6>
-**`m7-co2-briefing.mp3`** — <Hebrew briefing 7>
-**`m7-co2-clue.mp3`** — <Hebrew clue 7>
-**`m7-co2-reveal.mp3`** — <Hebrew reveal 7>
-**`m8-glucose-briefing.mp3`** — <Hebrew briefing 8>
-**`m8-glucose-clue.mp3`** — <Hebrew clue 8>
-**`m8-glucose-reveal.mp3`** — <Hebrew reveal 8>
+**`m6-oxygen-briefing.mp3`**
+המשימה הבאה: גז חמצן — האוויר שכל בעל חיים נושם. שתי יחידות חומר אדומות, וזהו. קלי קלות אחרי המתאן.
+
+**`m6-oxygen-clue.mp3`**
+האדומות זוהרות בחום — כבר תפסתם אותן בעבר. רק שתיים הפעם. קדימה!
+
+**`m6-oxygen-reveal.mp3`**
+גז חמצן! האוויר שממלא את הריאות שלכם ברגע זה ממש. יצרתם את מה ששומר על כל בעל חיים בחיים. יפה — ממשיכים הלאה!
+
+**`m7-co2-briefing.mp3`**
+עכשיו פחמן דו-חמצני — הגז שאתם נושפים החוצה. יחידת חומר אפורה אחת, ושתי יחידות חומר אדומות. אתם כבר מכירים את שני הצבעים.
+
+**`m7-co2-clue.mp3`**
+אחת אפורה, שתיים אדומות. האפורה כבדה ונשארת למטה; האדומות זוהרות בחום. אספו את שלושתן.
+
+**`m7-co2-reveal.mp3`**
+פחמן דו-חמצני! אתם נושפים אותו החוצה בכל נשימה, והצמחים שותים אותו פנימה. אתם עפים היום — נשארה רק בנייה ענקית אחת.
+
+**`m8-glucose-briefing.mp3`**
+בניית האלופים, רק לקבוצות המהירות ביותר: גלוקוז — הסוכר שנותן אנרגיה לכל יצור חי. בנייה ענקית: שש יחידות חומר אפורות, שתים עשרה לבנות, ושש אדומות. התפצלו וצאו בגדול!
+
+**`m8-glucose-clue.mp3`**
+עשרים וארבע יחידות חומר — הכי הרבה עד עכשיו. כמה מכם על האפורות, כמה על הלבנות, כמה על האדומות — ואז תאחדו את כולן יחד!
+
+**`m8-glucose-reveal.mp3`**
+גלוקוז! עשרים וארבע יחידות חומר — הדבר הגדול ביותר שבניתם אי פעם. זהו הסוכר שנמצא בתוך כל צמח — וגם בתוככם. אתם אגדות של הַמִּסְדָּר! עכשיו תנוחו — הרווחתם כל רגע מזה ביושר.
 
 (9 clips. The Codex lines stay text-only — no audio.)
 
