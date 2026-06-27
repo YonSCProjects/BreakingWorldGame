@@ -10,6 +10,7 @@ import Scanner from '../components/Scanner'
 import AtomGlyph from '../components/AtomGlyph'
 import { hapticLight, hapticReject, hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
+import { STAFF_MODE } from '../utils/staff'
 
 export default function HuntScreen() {
   const idx = useSession((s) => s.session.currentMissionIndex)
@@ -115,19 +116,22 @@ export default function HuntScreen() {
           <span className="mono text-[10px] tracking-[0.3em] text-signal/60">
             HOLDING FIELD
           </span>
-          <button
-            className="mono text-[10px] tracking-[0.2em] text-signal/35 active:text-signal"
-            onClick={() => setShowSim((v) => !v)}
-          >
-            ◇ TEST INJECTOR
-          </button>
+          {/* staff-only: hidden for players so the physical hunt can't be skipped */}
+          {STAFF_MODE && (
+            <button
+              className="mono text-[10px] tracking-[0.2em] text-signal/35 active:text-signal"
+              onClick={() => setShowSim((v) => !v)}
+            >
+              ◇ STAFF INJECTOR
+            </button>
+          )}
         </div>
 
         <HoldingField molecule={molecule} tray={tray} />
 
-        {/* simulate / test injector — stands in for printed QR while testing */}
+        {/* simulate / test injector — staff-only stand-in for a printed QR */}
         <AnimatePresence>
-          {showSim && (
+          {STAFF_MODE && showSim && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
