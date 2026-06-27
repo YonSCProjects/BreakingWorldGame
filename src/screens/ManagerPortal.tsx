@@ -2,13 +2,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TEAMS, teamByName } from '../data/teams'
 
-// Staff-only (?manage). Two jobs:
-//  1) Roster: load the recorded name clips, then place each knight in an Order
-//     and mark the one Seer (control) per team.
-//  2) Ceremony: a full-screen view for the big TV — press "Call the next Knight",
-//     their recording plays and their crest + Order appear.
-// All client-side; the roster is saved to localStorage. Audio clips are loaded
-// each session (object URLs can't persist).
+// Staff-only (?manage).
+//  • SETUP (any time): build the master roster — every student placed in an
+//    Order, with the one Seer (control) per team marked. Saved to localStorage.
+//    Use it to make the badges (name + Order + the Order's join-QR).
+//  • MORNING: mark who ARRIVED (load their name clips, or tap ✓). The Ceremony
+//    calls ONLY the arrived knights, revealing each one's Order on the big TV.
+// Attendance + audio are per session (so each morning starts fresh); the master
+// roster persists.
 
 type Role = 'field' | 'control'
 type Knight = { name: string; team: string | null; role: Role }
@@ -26,8 +27,10 @@ function loadRoster(): Knight[] {
 
 export default function ManagerPortal({ onExit }: { onExit: () => void }) {
   const [voices, setVoices] = useState<Record<string, string>>({})
+  const [present, setPresent] = useState<Set<string>>(new Set())
   const [roster, setRoster] = useState<Knight[]>(loadRoster)
   const [manual, setManual] = useState('')
+  const [filter, setFilter] = useState('')
   const [ceremony, setCeremony] = useState(false)
 
   useEffect(() => {
@@ -38,23 +41,27 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
 
   const onLoadVoices = (files: FileList | null) => {
     if (!files) return
-    const next: Record<string, string> = { ...voices }
+    const nextVoices: Record<string, string> = { ...voices }
     const additions: Knight[] = []
+    const arrived: string[] = []
     for (const f of Array.from(files)) {
       const name = fileToName(f)
       if (!name) continue
-      next[name] = URL.createObjectURL(f)
+      nextVoices[name] = URL.createObjectURL(f)
+      arrived.push(name)
       if (!roster.some((k) => k.name === name)) additions.push({ name, team: null, role: 'field' })
     }
-    setVoices(next)
+    setVoices(nextVoices)
     if (additions.length) setRoster((r) => [...r, ...additions])
+    setPresent((p) => new Set([...p, ...arrived])) // loading a clip = arrived
   }
 
   const addManual = () => {
     const name = manual.trim()
-    if (!name || roster.some((k) => k.name === name)) return setManual('')
-    setRoster((r) => [...r, { name, team: null, role: 'field' }])
     setManual('')
+    if (!name) return
+    if (!roster.some((k) => k.name === name)) setRoster((r) => [...r, { name, team: null, role: 'field' }])
+    setPresent((p) => new Set(p).add(name)) // typing a name in = arrived
   }
 
   const setTeam = (name: string, team: string) =>
@@ -62,14 +69,22 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
   const toggleSeer = (name: string) =>
     setRoster((r) => r.map((k) => (k.name === name ? { ...k, role: k.role === 'control' ? 'field' : 'control' } : k)))
   const remove = (name: string) => setRoster((r) => r.filter((k) => k.name !== name))
+  const toggleHere = (name: string) =>
+    setPresent((p) => {
+      const n = new Set(p)
+      n.has(name) ? n.delete(name) : n.add(name)
+      return n
+    })
 
-  const placed = roster.filter((k) => k.team)
+  const calling = roster.filter((k) => present.has(k.name) && k.team)
   const counts = useMemo(() => {
     const c: Record<string, { field: number; seer: number }> = {}
     for (const t of TEAMS) c[t.name] = { field: 0, seer: 0 }
-    for (const k of placed) if (k.team && c[k.team]) k.role === 'control' ? c[k.team].seer++ : c[k.team].field++
+    for (const k of calling) if (k.team && c[k.team]) k.role === 'control' ? c[k.team].seer++ : c[k.team].field++
     return c
-  }, [placed])
+  }, [calling])
+
+  const shown = filter ? roster.filter((k) => k.name.includes(filter.trim())) : roster
 
   return (
     <div className="relative z-10 mx-auto flex min-h-full w-full max-w-3xl flex-col gap-5 px-5 py-6">
@@ -80,32 +95,39 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
         </button>
       </header>
 
-      {/* 1 · recordings */}
+      {/* recordings */}
       <section className="hud-frame rounded-sm bg-void-900/40 p-4">
-        <p className="mono mb-2 text-[10px] tracking-[0.3em] text-signal/55">1 · LOAD THE NAME RECORDINGS</p>
+        <p className="mono mb-2 text-[10px] tracking-[0.3em] text-signal/55">MORNING · LOAD ARRIVED NAME CLIPS</p>
         <p className="mono mb-3 text-[11px] leading-relaxed text-[#bfefff]/60">
-          Select the Magister’s name clips (one <span className="text-signal">name.mp3</span> per student). Each
-          becomes a knight below.
+          Select the <span className="text-signal">name.mp3</span> clips of the students who came. Loading a clip marks
+          that knight <span className="text-[#7dffae]">arrived</span> and gives them their voice in the ceremony.
         </p>
         <label className="btn-ghost inline-block cursor-pointer text-xs">
-          Load recordings…
+          Load arrived clips…
           <input type="file" accept="audio/*" multiple className="hidden" onChange={(e) => onLoadVoices(e.target.files)} />
         </label>
-        <span className="mono ml-3 text-[11px] text-signal/60">{Object.keys(voices).length} loaded</span>
+        <span className="mono ml-3 text-[11px] text-signal/60">{Object.keys(voices).length} clips · {present.size} arrived</span>
       </section>
 
-      {/* 2 · place knights */}
+      {/* roster */}
       <section className="hud-frame rounded-sm bg-void-900/40 p-4">
         <div className="mb-3 flex items-center justify-between">
-          <p className="mono text-[10px] tracking-[0.3em] text-signal/55">2 · PLACE EACH KNIGHT</p>
-          <span className="mono text-[10px] text-signal/50">{placed.length}/{roster.length} placed</span>
+          <p className="mono text-[10px] tracking-[0.3em] text-signal/55">ROSTER · PLACE + MARK ARRIVED</p>
+          <span className="mono text-[10px] text-signal/50">{calling.length} calling · {roster.length} total</span>
         </div>
 
         <div className="mb-3 flex gap-2">
           <input
+            className="field-signal w-40 px-3 py-2 text-left text-xs"
+            style={{ textAlign: 'left', textTransform: 'none', letterSpacing: 'normal' }}
+            placeholder="filter…"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          <input
             className="field-signal flex-1 px-3 py-2 text-left text-xs"
             style={{ textAlign: 'left', textTransform: 'none', letterSpacing: 'normal' }}
-            placeholder="Add a name by hand (if no recording)…"
+            placeholder="add a name by hand…"
             value={manual}
             onChange={(e) => setManual(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addManual()}
@@ -116,47 +138,55 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          {roster.length === 0 && (
-            <p className="mono text-[11px] tracking-[0.2em] text-signal/30">— no knights yet —</p>
-          )}
-          {roster.map((k) => (
-            <div key={k.name} className="flex flex-wrap items-center gap-2 rounded-sm border border-signal/10 bg-void-800/40 px-2 py-1.5">
-              <span className="mono min-w-[7rem] flex-1 text-[13px] text-[#eaf6ff]">
-                {k.name}
-                <span className="ml-1.5 text-[10px]" style={{ color: voices[k.name] ? '#7dffae' : '#ff8a8a' }}>
-                  {voices[k.name] ? '♪' : 'no clip'}
-                </span>
-              </span>
-              {TEAMS.map((t) => (
-                <button
-                  key={t.name}
-                  onClick={() => setTeam(k.name, t.name)}
-                  title={t.name}
-                  className="rounded-sm border px-2 py-1 text-base leading-none"
-                  style={{
-                    borderColor: k.team === t.name ? t.color : 'rgba(255,255,255,0.12)',
-                    background: k.team === t.name ? `${t.color}22` : 'transparent',
-                    opacity: k.team === t.name ? 1 : 0.5,
-                  }}
-                >
-                  {t.emoji}
-                </button>
-              ))}
-              <button
-                onClick={() => toggleSeer(k.name)}
-                className="mono rounded-sm border px-2 py-1 text-[10px] tracking-[0.1em]"
-                style={{
-                  borderColor: k.role === 'control' ? '#8b7bff' : 'rgba(255,255,255,0.12)',
-                  color: k.role === 'control' ? '#c9beff' : 'rgba(255,255,255,0.4)',
-                }}
+          {shown.length === 0 && <p className="mono text-[11px] tracking-[0.2em] text-signal/30">— no knights —</p>}
+          {shown.map((k) => {
+            const here = present.has(k.name)
+            return (
+              <div
+                key={k.name}
+                className="flex flex-wrap items-center gap-2 rounded-sm border px-2 py-1.5"
+                style={{ borderColor: here ? 'rgba(125,255,174,0.3)' : 'rgba(255,255,255,0.08)', background: here ? 'rgba(125,255,174,0.05)' : 'rgba(10,12,20,0.4)' }}
               >
-                SEER
-              </button>
-              <button onClick={() => remove(k.name)} className="mono px-1 text-[12px] text-warn/60 active:text-warn">
-                ✕
-              </button>
-            </div>
-          ))}
+                <button
+                  onClick={() => toggleHere(k.name)}
+                  title="arrived?"
+                  className="mono rounded-sm border px-2 py-1 text-[11px]"
+                  style={{ borderColor: here ? '#7dffae' : 'rgba(255,255,255,0.15)', color: here ? '#7dffae' : 'rgba(255,255,255,0.35)' }}
+                >
+                  {here ? '✓ here' : 'absent'}
+                </button>
+                <span className="mono min-w-[6rem] flex-1 text-[13px] text-[#eaf6ff]">
+                  {k.name}
+                  {voices[k.name] && <span className="ml-1.5 text-[10px] text-[#7dffae]">♪</span>}
+                </span>
+                {TEAMS.map((t) => (
+                  <button
+                    key={t.name}
+                    onClick={() => setTeam(k.name, t.name)}
+                    title={t.name}
+                    className="rounded-sm border px-2 py-1 text-base leading-none"
+                    style={{
+                      borderColor: k.team === t.name ? t.color : 'rgba(255,255,255,0.12)',
+                      background: k.team === t.name ? `${t.color}22` : 'transparent',
+                      opacity: k.team === t.name ? 1 : 0.5,
+                    }}
+                  >
+                    {t.emoji}
+                  </button>
+                ))}
+                <button
+                  onClick={() => toggleSeer(k.name)}
+                  className="mono rounded-sm border px-2 py-1 text-[10px] tracking-[0.1em]"
+                  style={{ borderColor: k.role === 'control' ? '#8b7bff' : 'rgba(255,255,255,0.12)', color: k.role === 'control' ? '#c9beff' : 'rgba(255,255,255,0.4)' }}
+                >
+                  SEER
+                </button>
+                <button onClick={() => remove(k.name)} className="mono px-1 text-[12px] text-warn/60 active:text-warn">
+                  ✕
+                </button>
+              </div>
+            )
+          })}
         </div>
       </section>
 
@@ -170,21 +200,21 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
             </span>
           ))}
         </div>
-        <button className="btn-signal text-sm disabled:opacity-40" disabled={placed.length === 0} onClick={() => setCeremony(true)}>
-          ⟡ Begin the Ceremony
+        <button className="btn-signal text-sm disabled:opacity-40" disabled={calling.length === 0} onClick={() => setCeremony(true)}>
+          ⟡ Begin the Ceremony ({calling.length})
         </button>
       </section>
 
       <p className="mono text-[10px] leading-relaxed text-signal/30">
-        BADGES: print the join QRs with <span className="text-signal/60">npm run badges</span> → one per Order × role.
-        A badge QR drops a phone straight into its Order. Clear the roster only when you’re done:
-        <button className="ml-2 text-warn/50 active:text-warn" onClick={() => confirm('Clear the whole roster?') && setRoster([])}>
-          clear roster
+        BADGES: each badge = name + Order + that Order's join-QR (from <span className="text-signal/60">npm run badges</span>:
+        the KNIGHT QR for their Order, the SEER QR for the one Seer). Scanning it drops the phone into its Order.
+        <button className="ml-2 text-warn/50 active:text-warn" onClick={() => setPresent(new Set())}>
+          reset attendance
         </button>
       </p>
 
       <AnimatePresence>
-        {ceremony && <Ceremony roster={placed} voices={voices} onClose={() => setCeremony(false)} />}
+        {ceremony && <Ceremony roster={calling} voices={voices} onClose={() => setCeremony(false)} />}
       </AnimatePresence>
     </div>
   )
@@ -192,7 +222,7 @@ export default function ManagerPortal({ onExit }: { onExit: () => void }) {
 
 // ── The full-screen initiation, for the big TV ──────────────────────────
 function Ceremony({ roster, voices, onClose }: { roster: Knight[]; voices: Record<string, string>; onClose: () => void }) {
-  const [i, setI] = useState(-1) // -1 = title card, roster.length = finished
+  const [i, setI] = useState(-1)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const callNext = () => {
