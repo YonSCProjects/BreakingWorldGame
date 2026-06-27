@@ -55,7 +55,7 @@ export const MOLECULES: Record<string, Molecule> = {
     act: 2,
     centerSymbol: 'O',
     codexEntry:
-      'Two red sparks bound tight. This is the air in your lungs right now — animals breathe it IN, and plants breathe it back out for us.',
+      'Two red sparks bound tight. Your cells burn food with this to make the energy to move — and plants make it fresh for you.',
   },
   carbon_dioxide: {
     id: 'carbon_dioxide',
@@ -64,7 +64,7 @@ export const MOLECULES: Record<string, Molecule> = {
     act: 2,
     centerSymbol: 'C',
     codexEntry:
-      'One grey, two red, in a straight line. This is the air you breathe OUT — and the air plants are hungry to drink in.',
+      'One grey, two red, in a straight line. The leftover when your cells make energy — and exactly what plants are hungry to drink in.',
   },
 }
 

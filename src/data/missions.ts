@@ -70,17 +70,17 @@ export const MISSIONS: Mission[] = [
       'METHANE! Five pieces — your biggest build yet. Hour one is COMPLETE. Rest now, drink some water, shake out your legs. When you come back, the real secret begins. You earned it.',
   },
 
-  // ── HOUR 2 · THE BREATH OF THE WORLD ────────────────────────────────
+  // ── HOUR 2 · THE CIRCLE OF LIFE (cellular respiration ↔ photosynthesis) ─
   {
     id: 'm6-oxygen',
     order: 6,
     act: 2,
     targetMoleculeId: 'oxygen_gas',
     briefingText:
-      'Welcome back, CELL. Here’s the big secret: BREATHING. Right now you’re breathing IN oxygen to stay alive. Let’s make some — find two red sparks.',
+      'Welcome back, CELL. Here’s the real secret: ENERGY. To run, to move, even to think, your body burns food using OXYGEN — that’s respiration. Let’s make some oxygen: find two red sparks.',
     clueText: 'Red ones are warm and glowing. You only need two. Go!',
     revealText:
-      'OXYGEN — the air in your lungs this very second. Animals like us breathe it IN. But what do we breathe OUT? Come — I’ll show you.',
+      'OXYGEN — half of your fuel. Your cells burn food WITH this to make the energy to move. And when they do, they let something out… come, I’ll show you.',
   },
   {
     id: 'm7-co2',
@@ -88,10 +88,10 @@ export const MISSIONS: Mission[] = [
     act: 2,
     targetMoleculeId: 'carbon_dioxide',
     briefingText:
-      'When you breathe OUT, you let go of CARBON DIOXIDE — you make it all day without even trying. Build it: one grey, two red.',
+      'When your cells burn food for energy, they let out CARBON DIOXIDE — you make it every second you’re alive. Build it: one grey, two red.',
     clueText: 'One grey, two red. You’ve found both colours before — you know what to do.',
     revealText:
-      'CARBON DIOXIDE — your own breath, made real. Animals breathe it out… and plants? Plants are HUNGRY for it. Watch what happens next.',
+      'CARBON DIOXIDE — the leftover from making your energy. You let it out… and plants? Plants are HUNGRY for it. Watch what happens next.',
   },
   {
     id: 'm8-water-plant',
@@ -99,10 +99,10 @@ export const MISSIONS: Mission[] = [
     act: 2,
     targetMoleculeId: 'water',
     briefingText:
-      'Here’s the magic: plants drink your carbon dioxide, plus WATER and sunlight, to make food — and to breathe out fresh air. Bring the water: two white, one red.',
+      'Making energy also makes WATER — and plants drink it up. Plants take your carbon dioxide, your water, and sunlight to build new food and fresh oxygen. Bring the water: two white, one red.',
     clueText: 'Two white, one red — same as before. You’re fast at this now.',
     revealText:
-      'Now the plant has everything: your breath, water, and sunlight. And it gives something back… the very air you breathe. One last build, and you’ll see the whole circle.',
+      'Now the plant has it all — your carbon dioxide, your water, and the sun. It makes FOOD and fresh OXYGEN… the very things your cells need to make energy. One last build, and the circle closes.',
   },
   {
     id: 'm9-breath',
@@ -110,10 +110,10 @@ export const MISSIONS: Mission[] = [
     act: 2,
     targetMoleculeId: 'oxygen_gas',
     briefingText:
-      'The finale, CELL. The plant breathes out OXYGEN — and the circle closes. Make one last breath for the world. Two red sparks. Make it count.',
+      'The finale, CELL. The plant makes OXYGEN and food, so you can make energy and live — and the circle closes. Make the last oxygen: two red sparks. Make it count.',
     clueText: 'Two red. You know exactly where to look. Finish strong, together.',
     revealText:
-      'There it is — the BREATH OF THE WORLD. Animals breathe out carbon dioxide. Plants drink it and breathe out oxygen. Animals breathe that in… round and round, forever — and YOU restarted it.\n\nI said each of you was chosen for a gift. Now you’ve seen them: the one who never quit. The one who spotted what others missed. The ones who held the team together. It was never about the atoms. It was always about YOU.\n\nWell done, CELL. The world is breathing — because of you.',
+      'There it is — the CIRCLE OF LIFE. Your cells burn food and oxygen to make energy, and let out carbon dioxide and water. Plants drink those in, catch the sunlight, and make food and oxygen again — for you. Round and round, forever — and the sun powers it all.\n\nAnd the plant needs THREE gifts: air, water, and sun. Eagle, Dolphin, Lion. Alone, each is one piece. Together, you are life itself.\n\nYou restarted the circle, CELL. The world is alive — because of you, together.',
   },
 ]
 
