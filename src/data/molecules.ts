@@ -58,7 +58,7 @@ export const MOLECULES: Record<string, Molecule> = {
     act: 1,
     centerSymbol: 'O',
     codexEntry:
-      'Two red, bound tight. This is the oxygen in every breath — the air that keeps every animal alive.',
+      'שתי יחידות חומר אדומות, צמודות זו לזו חזק. זהו גז החמצן שבכל נשימה — האוויר ששומר על כל בעל חיים בחיים.',
   },
   carbon_dioxide: {
     id: 'carbon_dioxide',
@@ -67,7 +67,7 @@ export const MOLECULES: Record<string, Molecule> = {
     act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'One grey between two red, in a straight line. The gas you breathe out with every breath — and the gas plants are hungry to drink in.',
+      'יחידת חומר אפורה אחת בין שתי אדומות, בקו ישר. הגז שאתם נושפים החוצה בכל נשימה — והגז שהצמחים רעבים ללגום פנימה.',
   },
   glucose: {
     id: 'glucose',
@@ -76,7 +76,7 @@ export const MOLECULES: Record<string, Molecule> = {
     act: 1,
     centerSymbol: 'C',
     codexEntry:
-      'Six grey, twelve white, six red — twenty-four pieces in one ring. Glucose is sugar: the fuel that runs every living thing, from a blade of grass to you.',
+      'שש יחידות חומר אפורות, שתים עשרה לבנות ושש אדומות — עשרים וארבע יחידות חומר בטבעת אחת. גלוקוז הוא סוכר: הדלק שמפעיל כל יצור חי, מעלה דשא ועד אליכם.',
   },
 }
 

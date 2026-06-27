@@ -78,10 +78,10 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'oxygen_gas',
     briefingText:
-      'Next: OXYGEN — the air every animal breathes. Two red sparks, that’s all. Easy after methane.',
-    clueText: 'Red ones glow warm — you’ve grabbed them before. Just two this time. Go!',
+      'המשימה הבאה: גז חמצן — האוויר שכל בעל חיים נושם. שתי יחידות חומר אדומות, וזהו. קלי קלות אחרי המתאן.',
+    clueText: 'האדומות זוהרות בחום — כבר תפסתם אותן בעבר. רק שתיים הפעם. קדימה!',
     revealText:
-      'OXYGEN! The air in your lungs this very second. You made the thing that keeps every animal alive. Nice — keep rolling.',
+      'גז חמצן! האוויר שממלא את הריאות שלכם ברגע זה ממש. יצרתם את מה ששומר על כל בעל חיים בחיים. יפה — ממשיכים הלאה!',
   },
   {
     id: 'm7-co2',
@@ -89,10 +89,10 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'carbon_dioxide',
     briefingText:
-      'Now CARBON DIOXIDE — the gas you breathe OUT. One grey spark and two red. You know both colours.',
-    clueText: 'One grey, two red. Grey is heavy and stays low; red glows warm. Grab all three.',
+      'עכשיו פחמן דו-חמצני — הגז שאתם נושפים החוצה. יחידת חומר אפורה אחת, ושתי יחידות חומר אדומות. אתם כבר מכירים את שני הצבעים.',
+    clueText: 'אחת אפורה, שתיים אדומות. האפורה כבדה ונשארת למטה; האדומות זוהרות בחום. אספו את שלושתן.',
     revealText:
-      'CARBON DIOXIDE! You breathe this out with every breath, and plants drink it in. You’re flying today — one giant build left.',
+      'פחמן דו-חמצני! אתם נושפים אותו החוצה בכל נשימה, והצמחים שותים אותו פנימה. אתם עפים היום — נשארה רק בנייה ענקית אחת.',
   },
   {
     id: 'm8-glucose',
@@ -100,11 +100,11 @@ export const MISSIONS: Mission[] = [
     act: 1,
     targetMoleculeId: 'glucose',
     briefingText:
-      'The CHAMPIONS’ build, only for the fastest teams: GLUCOSE — the sugar that fuels every living thing. It’s massive: six grey, twelve white, six red. Split up and go big.',
+      'בניית האלופים, רק לקבוצות המהירות ביותר: גלוקוז — הסוכר שנותן אנרגיה לכל יצור חי. בנייה ענקית: שש יחידות חומר אפורות, שתים עשרה לבנות, ושש אדומות. התפצלו וצאו בגדול!',
     clueText:
-      'Twenty-four pieces — the biggest yet. Some hunt grey, some white, some red, and bring them all back together.',
+      'עשרים וארבע יחידות חומר — הכי הרבה עד עכשיו. כמה מכם על האפורות, כמה על הלבנות, כמה על האדומות — ואז תאחדו את כולן יחד!',
     revealText:
-      'GLUCOSE! Twenty-four pieces — the largest thing you have ever built. This is the sugar inside every plant, and inside you. You are LEGENDS of the Order. Rest now — you earned every bit of it.',
+      'גלוקוז! עשרים וארבע יחידות חומר — הדבר הגדול ביותר שבניתם אי פעם. זהו הסוכר שנמצא בתוך כל צמח — וגם בתוככם. אתם אגדות של המסדר! עכשיו תנוחו — הרווחתם כל רגע מזה ביושר.',
   },
 ]
 
