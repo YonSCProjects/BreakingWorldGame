@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useRoom } from './roomClient'
 import { useSession } from '../store/session'
+import { MISSIONS } from '../data/missions'
 
 // Headless: keeps the local view-model (useSession) in lockstep with the team
 // room while in networked field mode. Mounted only for field devices.
@@ -30,20 +31,22 @@ export default function FieldBridge() {
     }
   }, [lastScan, pushScan])
 
-  // watch the Codex: a new molecule means the control room sealed a bond →
-  // show the reveal. A shrunk Codex means staff reset the team → back to start.
-  const prevCodex = useRef<number | null>(null)
+  // watch the mission index: when it advances, the control room sealed a bond →
+  // reveal the molecule we just finished (works even when it repeats an earlier
+  // one, which the Codex count wouldn't catch). A drop means staff reset us.
+  const prevIdx = useRef<number | null>(null)
   useEffect(() => {
     if (!roomState) return
-    const n = roomState.codexMolecules.length
-    if (prevCodex.current !== null) {
-      if (n > prevCodex.current) {
-        revealMolecule(roomState.codexMolecules[n - 1])
-      } else if (n < prevCodex.current) {
+    const idx = roomState.currentMissionIndex
+    if (prevIdx.current !== null) {
+      if (idx > prevIdx.current) {
+        const done = MISSIONS[prevIdx.current]
+        if (done) revealMolecule(done.targetMoleculeId)
+      } else if (idx < prevIdx.current) {
         goto('briefing')
       }
     }
-    prevCodex.current = n
+    prevIdx.current = idx
   }, [roomState, revealMolecule, goto])
 
   return null

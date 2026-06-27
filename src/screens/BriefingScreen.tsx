@@ -3,10 +3,24 @@ import { motion } from 'framer-motion'
 import { useSession } from '../store/session'
 import { MISSIONS } from '../data/missions'
 import { MOLECULES } from '../data/molecules'
+import { ELEMENTS } from '../data/elements'
 import MoleculeSchematic from '../components/MoleculeSchematic'
 import Typewriter from '../components/Typewriter'
 import { hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
+
+// Plain colour words so kids hunt by colour, not chemistry.
+const COLOR_WORD: Record<string, string> = {
+  H: 'white',
+  O: 'red',
+  C: 'grey',
+  N: 'blue',
+  Na: 'violet',
+  Cl: 'green',
+  He: 'gold',
+  Ne: 'gold',
+  Ar: 'gold',
+}
 
 export default function BriefingScreen() {
   const idx = useSession((s) => s.session.currentMissionIndex)
@@ -24,11 +38,11 @@ export default function BriefingScreen() {
           animate={{ opacity: 1, scale: 1 }}
           className="mono text-sm leading-relaxed text-[#bfefff]/90"
         >
-          The descent is sealed, {cellName}. Every shape in this lowland holds because of you.
-          The Lattice will signal again when the next act begins.
+          You did it, {cellName}. The world is breathing again — because of you. Rest now,
+          heroes. The Magister is proud.
         </motion.p>
         <p className="mono soft-pulse text-[11px] tracking-[0.3em] text-signal/60">
-          ◈ AWAITING NEXT TRANSMISSION
+          ◈ CELL COMPLETE
         </p>
       </div>
     )
@@ -62,7 +76,7 @@ export default function BriefingScreen() {
           className="flex flex-col items-center gap-3"
         >
           <span className="mono text-[10px] tracking-[0.35em] text-signal/50">
-            TARGET LATTICE
+            WHAT TO MAKE
           </span>
           <div className="hud-frame rounded-sm bg-void-900/40 p-4">
             <MoleculeSchematic moleculeId={molecule.id} size={210} />
@@ -70,6 +84,19 @@ export default function BriefingScreen() {
           <span className="mono text-xs uppercase tracking-[0.25em] text-signal text-glow">
             {molecule.displayName} · {formulaLabel(molecule.formula)}
           </span>
+
+          {/* hunt-by-colour cue: e.g. ● 2 white   ● 1 red */}
+          <div className="mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            {Object.entries(molecule.formula).map(([sym, n]) => (
+              <span key={sym} className="mono flex items-center gap-1.5 text-[11px] tracking-[0.1em] text-[#bfefff]/80">
+                <span
+                  className="inline-block h-3 w-3 rounded-full"
+                  style={{ background: ELEMENTS[sym]?.color, boxShadow: `0 0 8px ${ELEMENTS[sym]?.color}` }}
+                />
+                {n} {COLOR_WORD[sym] ?? ELEMENTS[sym]?.name}
+              </span>
+            ))}
+          </div>
         </motion.div>
 
         {revealed && (
@@ -79,7 +106,7 @@ export default function BriefingScreen() {
             transition={{ delay: 0.3 }}
             className="border-l-2 border-lattice/50 pl-4"
           >
-            <p className="mono text-[10px] tracking-[0.3em] text-lattice/70">CLUE</p>
+            <p className="mono text-[10px] tracking-[0.3em] text-lattice/70">WHERE TO LOOK</p>
             <p className="mt-1 text-sm leading-relaxed text-[#d7c8ff]/90">{mission.clueText}</p>
           </motion.div>
         )}

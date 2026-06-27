@@ -2,35 +2,30 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { ScanOutcome } from '../types'
 import { ELEMENTS } from '../data/elements'
 
-// In-world phrasing for every scan outcome. Never "error", never "invalid".
+// Warm, kid-friendly phrasing. Every "yes" celebrates; every "no" is gentle and
+// encouraging — never "wrong", never blame.
 export function outcomeMessage(o: ScanOutcome): { text: string; good: boolean } {
   switch (o.kind) {
     case 'accepted':
       return {
         text: o.ready
-          ? `${ELEMENTS[o.element]?.name ?? o.element} locked. The set is complete — all hands to the lattice.`
-          : `${ELEMENTS[o.element]?.name ?? o.element} locked into the holding field.`,
+          ? `That’s everything — YOU DID IT! Carry it to the Control Room.`
+          : `YES! You locked in a ${ELEMENTS[o.element]?.name ?? o.element}. Keep going!`,
         good: true,
       }
     case 'duplicate':
-      return { text: 'This atom is already bound — find another.', good: false }
+      return { text: 'You already grabbed that one — go find a new spark!', good: false }
     case 'wrong-element':
-      return {
-        text: `${ELEMENTS[o.element]?.name ?? o.element} won't hold in this bond. Not what we came for.`,
-        good: false,
-      }
+      return { text: 'Not for this build — keep hunting, you’ve got this!', good: false }
     case 'already-full':
       return {
-        text: `The field already holds all the ${ELEMENTS[o.element]?.name ?? o.element} this bond needs.`,
+        text: `You’ve got enough ${ELEMENTS[o.element]?.name ?? o.element} — find the next colour!`,
         good: false,
       }
     case 'noble':
-      return {
-        text: `${ELEMENTS[o.element]?.name ?? o.element} is sealed — it bonds with nothing. A dead end. Note it and move on.`,
-        good: false,
-      }
+      return { text: 'Ooh, that one likes to be alone — leave it and grab another!', good: false }
     case 'unknown':
-      return { text: 'The signal is noise. That mark means nothing to the Lattice.', good: false }
+      return { text: 'Hmm, the signal’s fuzzy on that one. Try a different one!', good: false }
   }
 }
 

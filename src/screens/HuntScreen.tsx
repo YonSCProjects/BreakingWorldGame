@@ -8,7 +8,7 @@ import { ELEMENTS } from '../data/elements'
 import { isFormulaComplete } from '../store/verify'
 import Scanner from '../components/Scanner'
 import AtomGlyph from '../components/AtomGlyph'
-import { hapticLight, hapticReject, hapticMedium } from '../utils/haptics'
+import { hapticLight, hapticMedium } from '../utils/haptics'
 import { formulaLabel } from '../utils/format'
 import { STAFF_MODE } from '../utils/staff'
 
@@ -53,7 +53,8 @@ export default function HuntScreen() {
       setBurst({ color: ELEMENTS[lastScan.element]?.color ?? '#5ef2ff', ts: lastScan.ts })
       hapticLight()
     } else {
-      hapticReject()
+      // a soft, friendly tap for "not this one" — never a harsh punishing buzz
+      hapticLight()
     }
   }, [lastScan])
 

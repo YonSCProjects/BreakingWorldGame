@@ -4,13 +4,13 @@ import { useSession } from '../store/session'
 import Typewriter from '../components/Typewriter'
 import { hapticLight, hapticMedium } from '../utils/haptics'
 
-const COLD_OPEN = `If you are reading this, the channel held.
+const COLD_OPEN = `The signal found you. It only ever finds the right ones.
 
-We are the LATTICE — what remains of the ones who keep matter bound. The world is coming apart at a scale below sight. Bonds are slipping. Water forgets to be water. We call it the UNBINDING.
+I am the Magister. I called you here because you are not ordinary — each of you carries a gift the world has been missing.
 
-This device is a window into that unraveling, and your hands are the last we have. You will go out into the real world, find the loose atoms before they dissolve, and teach them to hold together again.
+You can’t see your power yet. This mission will show you what you’re made of.
 
-First, tell us who you are. Every cell that still stands has a name.`
+Together you are a CELL. Tell me its name — and we begin.`
 
 type Stage = 'static' | 'lock' | 'transmit' | 'name'
 
@@ -75,9 +75,9 @@ export default function BootScreen() {
         >
           <header className="flex items-center justify-between border-b border-signal/20 pb-2">
             <span className="mono text-[10px] tracking-[0.35em] text-signal/70">
-              ◈ LATTICE // INCOMING
+              ◈ THE MAGISTER
             </span>
-            <span className="mono text-[10px] tracking-[0.2em] text-signal/40">CH·001</span>
+            <span className="mono text-[10px] tracking-[0.2em] text-signal/40">FOR YOUR EYES</span>
           </header>
 
           <Typewriter
