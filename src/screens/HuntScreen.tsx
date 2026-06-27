@@ -61,7 +61,9 @@ export default function HuntScreen() {
   if (!mission || !molecule) return null
 
   return (
-    <div className="relative z-10 flex min-h-full flex-col">
+    // absolute-fill the parent (which has a real height) so the camera's flex-1
+    // always has space — min-h-full collapses the empty camera region to 0.
+    <div className="absolute inset-0 z-10 flex flex-col">
       {/* ── live camera fills the screen ─────────────────────────────── */}
       <div className="relative flex-1">
         <Scanner active onResult={handleScan} />
