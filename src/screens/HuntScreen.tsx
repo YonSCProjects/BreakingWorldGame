@@ -65,7 +65,9 @@ export default function HuntScreen() {
     // always has space — min-h-full collapses the empty camera region to 0.
     <div className="absolute inset-0 z-10 flex flex-col">
       {/* ── live camera fills the screen ─────────────────────────────── */}
-      <div className="relative flex-1">
+      {/* min-h floor so a tall holding field (e.g. glucose's 24 slots) can
+          never squeeze the camera region to 0 and "fail to open". */}
+      <div className="relative flex-1 min-h-[42%]">
         <Scanner active onResult={handleScan} />
 
         {/* reticle */}
@@ -199,7 +201,7 @@ function HoldingField({
   }
 
   return (
-    <div className="flex min-h-[88px] flex-wrap items-center justify-center gap-x-1 gap-y-2">
+    <div className="flex max-h-[30vh] min-h-[88px] flex-wrap items-center justify-center gap-x-1 gap-y-2 overflow-y-auto no-scrollbar">
       {slots.map((slot, i) => (
         <div key={`${slot.symbol}-${i}`} className="flex items-center justify-center">
           {slot.cardId ? (
